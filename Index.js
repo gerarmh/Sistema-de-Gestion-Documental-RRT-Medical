@@ -13,8 +13,11 @@ app.set('Views', './Views');
 // Se indica el motor del plantillas a utilizar
 app.set('view engine', 'pug');
 
-app.get('/hello', (req, res) => {
+app.get('/inicio', (req, res) => {
   res.render('index.pug', { mensaje: 'Usando Pug JS en Express' });
+});
+app.get('/login', (req, res) => {
+  res.render('login.pug', { mensaje: 'Iniciando sesion desde Pug' });
 });
 
 app.get('/urlparam', (req, res) => {
