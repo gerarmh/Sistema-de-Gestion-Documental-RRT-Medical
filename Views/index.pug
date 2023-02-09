@@ -12,28 +12,7 @@ html
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;1,200&family=Nunito:wght@900&display=swap" rel="stylesheet">
     body
         //----NAV BAR -----
-        nav(class="navbar")
-            div(id="logo")
-                img(src="images/logo.png" class="logo")
-            ul(class="nav-links")
-                li(class="active")
-                    a(href="#") Inicio
-                li 
-                    a(href="#") Manual
-                li 
-                    a(href="#") Revisiones
-                li 
-                    a(href="#") Administrar 
-                li 
-                    a(href="") Usuario 
-                    ul
-                        li 
-                            a(href="login.html") Iniciar sesión
-                        li 
-                            a(href="#") Iniciar sesión
-                        li 
-                            a(href="#") Iniciar sesión
-            img(src="images/menu-btn.png", alt="", class="menu-btn")
+        include nav.pug
         header
             div(class="header-content")
                 h2 Bienvenido

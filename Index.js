@@ -19,6 +19,9 @@ app.get('/inicio', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login.pug', { mensaje: 'Iniciando sesion desde Pug' });
 });
+app.get('/nav', (req, res) => {
+  res.render('nav.pug', { mensaje: 'Iniciando sesion desde Pug' });
+});
 
 app.get('/urlparam', (req, res) => {
   res.send(req.query);
