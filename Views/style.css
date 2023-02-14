@@ -32,6 +32,8 @@ ul {
     opacity: 80%;
     background-color: #3B3332;
     padding-right: 80px;
+    z-index: 2;
+    border-bottom: 2px solid #4ab642;
 }
 
 .navbar a {
@@ -48,25 +50,29 @@ ul {
 .nav-links li {
     padding-top: 14px;
     height: 100%;
+    border-radius: 20px;
 }
 
 .nav-links li:hover{
     background-color: #211C1C;
     cursor: pointer;
+    transition: all 0.5s ease;
 }
 
 .navbar ul li ul {
     display: none;
-    background-color: #3B3332;
+    background-color: #211C1C;
 }
 
 .navbar ul li:hover > ul {
-    display: initial;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     right: 0px;
     width: 209px;
-    margin-top: 44px;
+    margin-top: 0px;
     text-align: center;
+    border-bottom-left-radius: 20px;
 }
 
 .active a {
@@ -144,12 +150,13 @@ section {
     color: whitesmoke;
     margin: 20px;
 }
+
 #logo {
     padding-top: 15px;
-    border-radius: 40%;
+
 }
 .logo {
-    padding-left: 35px;
+    padding-left: 10px;
     padding-bottom: 5px;
     height: 35px;
     opacity: 100%;
@@ -287,12 +294,24 @@ section {
 }
 
 /* Login Navbar */
-.navbar {
-    padding: 0;
+.login-navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 20px;
+    opacity: 80%;
+    background-color: #3B3332;
+    z-index: 2;
+    border-bottom: 2px solid #4ab642;
 }
+
 #login-logo {
     margin: 0 auto;
     padding-top: 15px;
+    padding-left: 80px;
     border-radius: 40%;
 }
 .login-logo {
@@ -301,18 +320,68 @@ section {
     opacity: 100%;
 }
 
+/* Admin styles */
+.admin-header {
+    align-items: start;
+}
+
+.admin-table {
+    z-index: 1;
+    margin: 100px auto;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5); 
+}
+
+.admin-table caption {
+    font-size: 28px;
+    color: #3B3332;
+    font-weight: bold;
+    margin: 8px 0px;
+}
+
+.admin-table th {
+    border-bottom: 2px solid #4ab642;
+}
+
+.admin-table th, .admin-table td {
+    font-size: 16px;
+    color: #3B3332;
+    padding: 8px;
+    text-align: center;
+}
+
+/*.admin-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}/*
 
 
 
 /* Mobile device */
 @media only screen and (max-width: 850px) {
+    .admin-header {
+        height: 100%;
+    }
+
     .menu-btn {
         display: block;
+        top: 15px;
     }
-    .navbar {    
+    
+    .navbar {
         padding: 0;
         background-color: #3B3332;
         opacity: 90%;
+        padding-bottom: 50px;
+    }
+    
+    .navbar {
+        padding: 0;
+        background-color: #3B3332;
+        opacity: 90%;
+        padding-bottom: 50px;
     }
 
     .navbar a {
@@ -328,8 +397,12 @@ section {
     .logo {
         position: absolute;
         height: 50px;
-        top: 30px;
+        top: 10px;
         left: 30px;
+    }
+
+    #login-logo {
+        padding: 0;
     }
     
     .nav-links {
@@ -356,9 +429,60 @@ section {
     }
 
     .navbar ul li:hover ul {
-        margin-top: 60px;
+        margin-top: 0px;
         width: 100%;
         text-align: center;
         padding: 30px 0 30px 0;
-    } 
+        background-color: #211C1C;
+        border-bottom: 2px solid #4ab642;
+        border-radius: 0px;
+    }
+
+    /* Administrar responsive styles */
+    .admin-table {
+        width: 90%;
+        border: 0px;
+    }
+    
+    .admin-table caption{
+        font-size: 22px;
+    }
+
+    .admin-table th {
+        display: none;
+    }
+
+    .admin-table tr {
+        margin-bottom: 8px;
+        border-radius: 20px;
+        display: block;
+    }
+
+    .tr-interior {
+        margin-left: 10px;
+        margin-right: 10px;
+        border-bottom: 2px solid #4ab642;
+        border-top: 2px solid #4ab642;
+    }
+
+    .admin-table th, .admin-table td {
+        font-size: 12px;
+    }
+
+    .admin-table td {
+        display: block;
+        border-bottom: 1px;
+        text-align: right;
+    }
+
+    .admin-table td:last-child {
+        border-bottom: 0px;
+    }
+
+    .admin-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+        float: left;
+    }
 }

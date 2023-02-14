@@ -1,0 +1,63 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title="Login"
+        link(rel="stylesheet", type="text/css", href="style.css")
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;1,200&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;1,200&family=Nunito:wght@900&display=swap" rel="stylesheet">
+    body
+        //----NAV BAR -----
+        include nav.pug
+        header(class="admin-header")
+            table(class="admin-table")
+                caption Solicitudes
+                    thread
+                        tr
+                            th Procedimiento
+                            th Area 
+                            th Cambios a realizar
+                            th Folio 
+                            th Aprobar/Rechazar
+                            th Estado 
+                            th Cambios aplicados
+                    tbody 
+                        tr(class="tr-interior")
+                            td(data-label="Procedimiento") Control de cambios 
+                            td(data-label="Area") Asuntos Regulatorios 
+                            td(data-label="Cambios a realizar") Cambios referentes a la redaccion  
+                            td(data-label="Folio") Q-1533-S 
+                            td(data-label="Aprobar/Rechazar") Aceptar 
+                            td(data-label="Estado") Aprobado
+                            td(data-label="Cambios aplicaos") Ver
+                        tr(class="tr-interior")
+                            td(data-label="Procedimiento") Control de cambios 
+                            td(data-label="Area") Asuntos Regulatorios 
+                            td(data-label="Cambios a realizar") Cambios referentes a la redaccion  
+                            td(data-label="Folio") Q-1533-S 
+                            td(data-label="Aprobar/Rechazar") Aceptar 
+                            td(data-label="Estado") Aprobado
+                            td(data-label="Cambios aplicaos") Ver
+                        tr(class="tr-interior")
+                            td(data-label="Procedimiento") Control de cambios 
+                            td(data-label="Area") Asuntos Regulatorios 
+                            td(data-label="Cambios a realizar") Cambios referentes a la redaccion  
+                            td(data-label="Folio") Q-1533-S 
+                            td(data-label="Aprobar/Rechazar") Aceptar 
+                            td(data-label="Estado") Aprobado
+                            td(data-label="Cambios aplicaos") Ver
+        section(class="footer")
+            p Av Farallón del Obispo 810, Farallon, 39690 Acapulco de Juárez, Gro. | granados@myrrt.de
+            p(class="copy") Copyright © 2023 S.A. de C.V.
+        script. 
+            const menuBtn = document.querySelector('.menu-btn')
+            const navlinks = document.querySelector('.nav-links')
+            menuBtn.addEventListener('click', () => {
+                navlinks.classList.toggle('mobile-menu')
+            })     
+        script(type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js")
+        script(nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js")
