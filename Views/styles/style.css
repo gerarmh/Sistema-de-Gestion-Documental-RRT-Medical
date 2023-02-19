@@ -40,6 +40,11 @@ ul {
     color: whitesmoke;
     opacity: 100%;
     padding: 0px 30px 0px 30px;
+    transition: all 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #4ab642;
 }
 
 .nav-links {
@@ -84,7 +89,7 @@ ul {
 header {
     width: 100%;
     height: 100vh;
-    background-image: url('images/banner.jpg');
+    background-image: url('/views/images/banner.jpg');
     background-position: bottom;
     background-size: cover;
     display: flex;
@@ -162,11 +167,16 @@ section {
     opacity: 100%;
 }
 
+#logo a{
+    padding: 0px 0px 0px 0px;
+}
+
 /* Login styles */
 /* Header styles */
 .login-header {
     align-items: start;
 }
+
 /* login Form */
 .wrapper {
     margin: 100px auto;
@@ -311,7 +321,6 @@ section {
 #login-logo {
     margin: 0 auto;
     padding-top: 15px;
-    padding-left: 80px;
     border-radius: 40%;
 }
 .login-logo {
@@ -329,9 +338,8 @@ section {
     z-index: 1;
     margin: 100px auto;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 20px;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(50px);
     box-shadow: 0 0 30px rgba(0, 0, 0, .5); 
 }
 
@@ -353,11 +361,139 @@ section {
     text-align: center;
 }
 
-/*.admin-table tbody tr:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-}/*
+/* manual styles */
+.manual-header {
+    align-items: start;
+    flex-direction: column;
+    height: 100%;
+}
+
+.titulo {
+    width: 40%;
+    height: 50px;
+    /*margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;*/
+    margin: 100px auto 30px;
+    background: transparent;
+    border-radius: 20px;
+    backdrop-filter: blur(50px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    border-bottom: 2px #4ab642 solid;
+    text-align: center;
+    font-size: 28px;
+    color: #3B3332;
+    font-weight: bold;
+}
+
+.container {
+    width: 100%;
+    margin: 0px auto ;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.caja img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.caja {
+    background: transparent;
+    border-radius: 20px;
+    backdrop-filter: blur(50px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    text-align: center;
+    line-height: 60px;
+    width: 200px;
+    margin: 15px;
+}
+
+.caja:hover {
+    transition: all 0.5s;
+    box-shadow: 0 0 30px gray;
+}
+
+.image-title {
+    margin-top: -30px;
+    text-align: center;
+    font-size: 20px;
+    color: #3B3332;
+    font-weight: bold;
+}
+
+/* Modal styles */
+.boton-modal {
+    padding: 10px;
+}
+
+.boton-modal label{
+    padding: 10px 15px;
+    background-color: #3B3332;
+    color:#fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 300ms ease;
+}
 
 
+/* Button Modal */
+
+/* En Button-modal */
+
+/* Window modal */
+#btn-modal {
+    display: none;
+}
+
+.container-modal {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: -65px; left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#btn-modal:checked ~ .container-modal {
+    display: flex;
+    opacity: 100%;
+}
+
+.content-modal {
+    width: 90%;
+    height: 90%;
+    padding: 5px 10px 40px 5px;
+    background-color: gray;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    border-radius: 20px;
+}
+
+.content-modal iframe {
+    border-radius: 20px;
+}
+
+.content-modal .btn-cerrar {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content-modal .btn-cerrar label {
+    padding: 7px 10px;
+    background-color: #3B3332;
+    color:#fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 300ms ease;
+}
+
+/*  end window modal */
 
 /* Mobile device */
 @media only screen and (max-width: 850px) {
@@ -398,7 +534,7 @@ section {
         position: absolute;
         height: 50px;
         top: 10px;
-        left: 30px;
+        left: 0px;
     }
 
     #login-logo {
@@ -485,4 +621,29 @@ section {
         text-transform: uppercase;
         float: left;
     }
+
+    /* manual responsive styles */
+    .manual-header {
+        height: 100%;
+    }
+
+    .titulo {
+        width: 90%;
+        height: 40px;
+        font-size: 22px;
+    }
+
+    .caja {
+        width: 150px;
+    }
+
+    .image-title {
+        margin-top: -40px;
+        font-size: 15px;
+    }
+
+    .content-modal iframe {
+        margin-right: 15px;
+    }
+
 }
