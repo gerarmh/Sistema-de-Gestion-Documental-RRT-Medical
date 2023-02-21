@@ -5,6 +5,7 @@ html
         meta(http-equiv="X-UA-Compatible" content="IE=edge")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         title="Administrar"
+        link(rel="shortcut icon", href="images/pestaña.png")
         link(rel="stylesheet", type="text/css", href="../views/styles/style.css")
         link(rel="stylesheeet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css")
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +36,8 @@ html
                             td(data-label="Cambios realizados") - Redaccion
                             td(data-label="Ver procedimiento")
                                 include modal.html
+                                //a(class="obs-mobile", href="../pdf/obsoletos/baldor.pdf", download="baldor.pdf")
+                                    button(class="btn") Ver
                         tr(class="tr-interior")
                             td(data-label="Nombre del procedimiento") Control de cambios 
                             td(data-label="Area") Asuntos Regulatorios 
