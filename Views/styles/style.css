@@ -34,6 +34,7 @@ ul {
     padding-right: 80px;
     z-index: 2;
     border-bottom: 2px solid #4ab642;
+    align-items: center;
 }
 
 .navbar a {
@@ -52,7 +53,8 @@ ul {
 }
 
 .nav-links li {
-    padding-top: 14px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     height: 100%;
     width: 159px;
     border-radius: 20px;
@@ -153,6 +155,7 @@ section {
 }
 
 .footer {
+    align-items: end;
     width: 100%;
     min-height: 100px;
     padding: 20px 80px;
@@ -165,13 +168,8 @@ section {
     margin: 20px;
 }
 
-#logo {
-    padding-top: 15px;
-
-}
 .logo {
     padding-left: 10px;
-    padding-bottom: 5px;
     height: 35px;
     opacity: 100%;
 }
@@ -341,6 +339,8 @@ section {
 /* Admin styles */
 .admin-header {
     align-items: start;
+    min-height: 100vh;
+    height: 100%;
 }
 
 .admin-table {
@@ -398,6 +398,7 @@ section {
 .container {
     width: 100%;
     margin: 0px auto ;
+    margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -433,6 +434,11 @@ section {
     font-weight: bold;
 }
 
+/* obsolete styles */
+
+.obs-header {
+    height: 100%;
+}
 /* Modal styles */
 .boton-modal {
     padding: 10px;
@@ -463,25 +469,34 @@ section {
 
 .container-modal {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     position: fixed;
-    top: -65px; left: 0;
+    top: 0; left: 0; right: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
     z-index: 100;
-    transform: scale(0);
-    transition: transform .5s ease;
+    /*transform: scale(0);*/
+    visibility: hidden;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: .5s ease;
 }
 
 #btn-modal:checked ~ .container-modal {
-    transform: scale(1);
+    transform: translate(0,0);
+    opacity: 1;
+    visibility: visible;
 }
 
 .content-modal {
+    position: sticky;
     width: 90%;
+    top: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     height: 500px;
-    padding: 5px 10px 40px 5px;
+    padding: 5px 10px 5px 5px;
     background-color: gray;
     opacity: 95%;
     box-shadow: 0 0 30px rgba(0, 0, 0, .5);
@@ -490,8 +505,8 @@ section {
 
 .content-modal iframe {
     border-radius: 20px;
-    width: 90%;
-    height: 99%;
+    width: 95%;
+    height: 90%;
 }
 
 .content-modal .btn-cerrar {
@@ -510,6 +525,7 @@ section {
     transition: all 300ms ease;
     margin-right: -10px;
     margin-top: -5px;
+    margin-bottom: 10px;
 }
 
 .content-modal .btn-cerrar label:hover {
@@ -533,14 +549,7 @@ section {
         padding: 0;
         background-color: #3B3332;
         opacity: 90%;
-        padding-bottom: 50px;
-    }
-    
-    .navbar {
-        padding: 0;
-        background-color: #3B3332;
-        opacity: 90%;
-        padding-bottom: 50px;
+        padding-bottom: 70px;
     }
 
     .navbar a {
@@ -665,19 +674,32 @@ section {
         font-size: 15px;
     }
 
+    /* obsolete styles */
+
     .container-modal {
         top: 0px;
         height: 100%;
+        align-items: start;
     }
 
     .content-modal {
         position: sticky;
+        padding: 5px 5px 5px 5px;
         top: 50px;
-        height: 500px;
+        height: 600px;
+    }
+    
+    .content-modal .btn-cerrar label {
+        padding: 10px;
+        margin: 0;
+    }
+    
+    .btn-cerrar {
+        margin-bottom: 10px;
     }
 
     .content-modal iframe {
-        margin-right: 15px;
+        width: 100%;
+        height: 90%;
     }
-
 }
