@@ -21,7 +21,7 @@ ul {
 }
 
 /* NAV BAR */
-.navbar {
+.navbar- {
     position: absolute;
     top: 0;
     left: 0;
@@ -37,19 +37,21 @@ ul {
     align-items: center;
 }
 
-.navbar a {
+.navbar- a {
+    text-decoration: none;
     color: whitesmoke;
     opacity: 100%;
     transition: all 0.3s ease;
 }
 
-.navbar a:hover {
+.navbar- a:hover {
     color: #4ab642;
 }
 
 .nav-links {
     display: flex;
     align-items: center;
+    margin: 0;
 }
 
 .nav-links li {
@@ -67,7 +69,7 @@ ul {
     transition: all 0.5s ease;
 }
 
-.navbar ul li ul {
+.navbar- ul li ul {
     display: flex;
     visibility: hidden;
     align-items: center;
@@ -75,6 +77,7 @@ ul {
     justify-content: space-between;
     background-color: #211C1C;
     position: absolute;
+    padding: 0;
     width: 159px;
     margin-top: 0px;
     text-align: center;
@@ -85,7 +88,7 @@ ul {
     transition: 0.5s ease;
 }
 
-.navbar ul li:hover > ul {
+.navbar- ul li:hover > ul {
     transform: translate(0,0);
     opacity: 1;
     visibility: visible;
@@ -395,7 +398,7 @@ section {
     font-weight: bold;
 }
 
-.container {
+.container-manual {
     width: 100%;
     margin: 0px auto ;
     margin-bottom: 20px;
@@ -533,6 +536,18 @@ section {
 }
 
 /*  end window modal */
+/* solicitud styles */
+.container {
+    background: transparent;
+    border-radius: 20px;
+    backdrop-filter: blur(50px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    margin-top: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    color: #3B3332;
+}
+
 
 /* Mobile device */
 @media only screen and (max-width: 850px) {
@@ -545,14 +560,14 @@ section {
         top: 15px;
     }
     
-    .navbar {
+    .navbar- {
         padding: 0;
         background-color: #3B3332;
         opacity: 90%;
         padding-bottom: 70px;
     }
 
-    .navbar a {
+    .navbar- a {
         color: whitesmoke;
     }
 
@@ -596,7 +611,7 @@ section {
         padding: 30px 0 30px 0;
     }
 
-    .navbar ul li:hover ul {
+    .navbar- ul li:hover ul {
         margin-top: 0px;
         width: 100%;
         text-align: center;
@@ -702,4 +717,19 @@ section {
         width: 100%;
         height: 90%;
     }
+
+    /* solicitud mobile styles */
+    .content {
+        width: 90%;
+    }
+
+    .soli-form {
+        padding: 5px;
+    }
+
+    .soli-form form {
+        display: flex;
+        flex-direction: column;
+    }
+    
 }

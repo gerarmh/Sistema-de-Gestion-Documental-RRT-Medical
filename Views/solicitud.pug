@@ -4,45 +4,229 @@ html
         meta(charset="utf-8")
         meta(http-equiv="X-UA-Compatible" content="IE=edge")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
-        title="Login"
+        title="Solicitud"
         link(rel="shortcut icon", href="images/pestaña.png")
         link(rel="stylesheet", type="text/css", href="../views/styles/style.css")
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;1,200&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;1,200&family=Nunito:wght@900&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        script(src="gen-pdf/jspdf.min.js")
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+        script(src="firma/app.js")
     body
         //----NAV BAR ----- 
         include nav.html
-        header(class="login-header")
-            div(class="wrapper")
-                div(class="form-box login")
-                    h2 Ingresa tus datos
-                    div(class="line")
-                    form(action="#")
-                        div(class="input-box")
-                            span(class="icon")
-                                ion-icon(name="mail")
-                            input(type="email", required)
-                            label Correo
-                        div(class="input-box")
-                            span(class="icon")
-                                ion-icon(name="lock-closed")
-                            input(type="password", required)
-                            label Contraseña
-                        div(class="remember-forgot")
-                            <label><input type="checkbox"> Recordarme</label>
-                            a(href="#") ¿Olvidaste tu contraseña?
-                        button(type="submit" class="btn") Iniciar sesión
-                        //div(class="login-register")
-                        //    p ¿No tienes una cuenta?
-                        //        a(href="#", class="register-link")  Registrarse
-        //section
-        //    div(class="title")
-        //        h1 Upcoming Events
-        //        div(class="line")
-        section(class="footer")
-            p Av Farallón del Obispo 810, Farallon, 39690 Acapulco de Juárez, Gro. | granados@myrrt.de
-            p(class="copy") Copyright © 2023 S.A. de C.V.
+        header(class="admin-header")
+            div(class="container")
+                div(class="row")
+                    div(class="col-md-8 offset-md-2")
+                        h3 Formato de Control de Cambios
+                        hr
+                        fomr(id="form")
+                            div(class="row mb-3")
+                                div(class="col-md-3")
+                                    label(for="pag", class="form-label") Pag.
+                                    input(type="text", class="form-control" id="pag")
+                                div(class="col-md-3")
+                                    label(for="de", class="form-label") de
+                                    input(type="text", class="form-control" id="de")
+                                div(class="col-md-6")
+                                    label(for="folio", class="form-label") Folio no.
+                                    input(type="text", class="form-control" id="folio")
+                            div(class="row mb-3")
+                                div(class="col-md-9")
+                                    label(for="nombre", class="form-label") Nombre del Solicitante
+                                    hr
+                                    input(type="text", class="form-control" id="nombre")
+                                div(class="col-md-3")
+                                    label(for="firma-soli", class="form-label") Firma del solicitante
+                                    br
+                                    canvas(id="signature-canvas", style="border:1px dashed #4ab642; width:100%; height: 100px;")
+                            div(class="mb-3")
+                                label(for="area", class="form-label") Area
+                                input(type="text", class="form-control" id="area")
+                            div(class="row mb-3")
+                                div(class="col-md-6")
+                                    label(for="fecha-soli", class="form-label") Fecha de solicitud
+                                    input(type="date", class="form-control" id="fecha-soli")
+                                div(class="col-md-6")
+                                    label(for="fecha-efec", class="form-label") Fecha de efectividad
+                                    input(type="date", class="form-control" id="fecha-efec")
+                            div(class="mb-3")
+                                label(for="razon", class="form-label") Razon del cambio
+                                hr
+                                input(type="text", class="form-control" id="razon")
+                            div(class="row-mb-3")
+                                div
+                                    label(for="", class="form-label") Alcance de cambio:
+                                    br
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="proced-formato" value="1")
+                                        label(for="proced-formato", class="form-check-label") Proced. y/o Formato
+                                        
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="producto" value="2")
+                                        label(for="producto", class="form-check-label") Producto
+
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="mat-prima" value="3")
+                                        label(for="mat-prima", class="form-check-label") Materia prima/Fabricante
+
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="especificaciones" value="4")
+                                        label(for="especificaciones", class="form-check-label") Especificaciones
+
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="proceso" value="5")
+                                        label(for="proceso", class="form-check-label") Proceso
+
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="met-analisis" value="6")
+                                        label(for="met-analisis", class="form-check-label") Métodos de análisis
+
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="equipos" value="7")
+                                        label(for="equipos", class="form-check-label") Equipos
+
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="sis-computo" value="8")
+                                        label(for="sis-computo", class="form-check-label") Sistemas de cómputo
+
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="instalaciones" value="9")
+                                        label(for="instalaciones", class="form-check-label") Instalaciones
+                                    
+                            div(class="row-mb-3")
+                                div(cass="col-md-9")
+                                    div
+                                        label(for="espec-titulo", class="form-label") Especificación y título
+                                        textarea(type="text", class="form-control", id="espec-titulo")
+                            div(class="row mb-3")
+                                div(class="col-md-6")
+                                    label(for="cambio-de", class="form-label") Cambio de:
+                                    textarea(type="text", class="form-control" id="cambio-de")
+                                div(class="col-md-6")
+                                    label(for="cambio-a", class="form-label") Cambio a:
+                                    textarea(type="text", class="form-control" id="cambio-a")
+                            
+                            div(class="row mb-3")
+                                label(class="form-label") Recursos Humanos
+                                hr
+                                div(class="col-md-3")
+                                    div
+                                        label(for="", class="form-label") a) Capacitación
+                                        br 
+                                        div(class="form-check form-check-inline")
+                                            input(type="radio", name="capacitacion", class="form-check-input", id="capacitacion-si", value="1")
+                                            label(for="capacitacion-si" class="form-check-label") Si
+                                        div(class="form-check form-check-inline")
+                                            input(type="radio", name="capacitacion", class="form-check-input", id="capacitacion-no", value="0")
+                                            label(for="capacitacion-no", class="form-check-label") No
+                                div(class="col-md-9")
+                                    div
+                                        label(for="capacitacion-desc", class="form-label") Necesita explicar los cambios.
+                                        input(type="text", class="form-control", id="capacitacion-desc")
+                                div(class="col-md-3")
+                                    div
+                                        label(for="", class="form-label") b) Evaluación
+                                        br 
+                                        div(class="form-check form-check-inline")
+                                            input(type="radio", name="evaluacion", class="form-check-input", id="evaluacion-si", value="1")
+                                            label(for="evaluacion-si" class="form-check-label") Si
+                                        div(class="form-check form-check-inline")
+                                            input(type="radio", name="evaluacion", class="form-check-input", id="evaluacion-no", value="0")
+                                            label(for="evaluacion-no", class="form-check-label") No
+                                div(class="col-md-9")
+                                    div
+                                        label(for="capacitacion-desc", class="form-label") Necesita explicar los cambios.
+                                        input(type="text", class="form-control", id="capacitacion-desc")
+                            div(class="row mb-3")
+                                div(class="col-md-9")
+                                    label(for="porque-no", class="form-label") ¿Por qué no? a/b
+                                    textarea(type="text", class="form-control" id="porque-no" style="height:100px;")
+                                div(class="col-md-3")
+                                    label(for="firma-rh", class="form-label") Firma de RH
+                                    br
+                                    canvas(id="signature-canvas", style="border:1px dashed #4ab642; width:100%; height: 100px;")
+                            div(class="row mb-3")
+                                div(class="col-md-6")
+                                    div
+                                        label(for="", class="form-label") Requerimiento de Calificación/Validación:
+                                        br
+                                        div(class="form-check form-check-inline")
+                                            input(type="radio", name="req-calificacion", class="form-check-input", id="req-si", value="1")
+                                            label(for="req-si", class="form-check-label") Si
+                                        div(class="form-check form-check-inline")
+                                            input(type="radio", name="req-calificacion", class="form-check-input", id="req-no", value="0")
+                                            labrel(for="req-no", class="form-check-label") No
+                                div(class="col-md-6")
+                                    div
+                                        label(for="capacitacion-desc", class="form-label") No. Calificación/Validación:
+                                        input(type="text", class="form-control", id="capacitacion-desc")
+                            div(class="row-mb-3")
+                                div(cass="col-md-9")
+                                    div
+                                        label(for="resultado", class="form-label") Actividades por realizar/Resultados esperados:
+                                        textarea(type="text", class="form-control", id="resultado")
+                            br
+                            div(class="row-mb-3")
+                                div(cass="col-md-9")
+                                    div
+                                        label(for="pruebas", class="form-label") Pruebas requeridas (referencia al protocolo de las pruebas):
+                                        hr
+                                        textarea(type="text", class="form-control", id="pruebas")
+                            br
+                            div(class="mb-3")
+                                label(for="", class="form-label") Comité para evaluación del cambio:
+                                hr
+                                div
+                                    label(for="jefe-area", class="form-label") Jefe de Área
+                                    canvas(id="signature-canvas", style="border:1px dashed #4ab642; width:100%; height: 100px;")
+                                    label(for="resp-sanitario", class="form-label") Responsable Sanitario/Gte. de Aseg. de la Calidad
+                                    canvas(id="signature-canvas", style="border:1px dashed #4ab642; width:100%; height: 100px;")
+                                    label(for="gte-produccion", class="form-label") Gerente de Producción
+                                    canvas(id="signature-canvas", style="border:1px dashed #4ab642; width:100%; height: 100px;")
+                                    label(for="direc-operaciones", class="form-label") Director de Operaciones
+                                    canvas(id="signature-canvas", style="border:1px dashed #4ab642; width:100%; height: 100px;")
+                            div(class="mb-3")
+                                label(for="", class="form-label") Aprueba el cambio:
+                                hr
+                                div
+                                    label(for="resp-sanitario", class="form-label") Responsable Sanitario
+                                    canvas(id="signature-canvas", style="border:1px dashed #4ab642; width:100%; height: 100px;")
+                            div(class="row mb-3")
+                                div(class="col-md-9")
+                                    label(for="responsable", class="form-label") Responsable de realizar la modificación
+                                    hr
+                                    input(type="text", class="form-control" id="responsable")
+                                div(class="col-md-3")
+                                    label(for="firma-responsable", class="form-label") Firma
+                                    br
+                                    canvas(id="signature-canvas", style="border:1px dashed #4ab642; width:100%; height: 100px;")
+                            div(class="row mb-3")
+                                div(class="col-md-6")
+                                    label(for="fecha-inicio", class="form-label") Fecha de inicio
+                                    input(type="date", class="form-control" id="fecha-inicio")
+                                div(class="col-md-6")
+                                    label(for="fecha-termino", class="form-label") Fecha de termino
+                                    input(type="date", class="form-control" id="fecha-termino")
+                            button(type="submit",class="btn btn-primary pb-4", style="background-color: #3B3332; border: none") Generar PDF
+                            br
+                            h3(style="text-align: right; font-size:15px;") QA 03.14
+
+        include footer.html
         script(type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js")
         script(nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js")
+        script.
+            // Obtener la fecha actual
+            var fecha = new Date();
+
+            // Formatear la fecha como una cadena en el formato YYYY-MM-DD
+            var fechaFormateada = fecha.getFullYear() + '-' + ('0' + (fecha.getMonth()+1)).slice(-2) + '-' + ('0' + fecha.getDate()).slice(-2);
+
+            // Establecer la fecha actual como valor predeterminado en el elemento de entrada de fecha
+            document.getElementById('fecha-soli').value = fechaFormateada;
