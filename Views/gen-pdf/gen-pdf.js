@@ -71,8 +71,8 @@ async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, pro
     pdf.text(razon, 122, 117, {align:'left', lineHeightFactor: 1.5, maxWidth: 450});
 
     pdf.text(espectitulo, 45, 220, {align:'justify', lineHeightFactor: 1.5, maxWidth: 510});
-    pdf.text(cambiode, 42, 316, {align: 'left', lineHeightFactor: 1.2, maxWidth: 230});
-    pdf.text(cambioa, 280, 316, {align: 'left', lineHeightFactor: 1.2, maxWidth: 280});
+    pdf.text(cambiode, 42, 316, {align: 'left', lineHeightFactor: 1.2, maxWidth: 220});
+    pdf.text(cambioa, 280, 316, {align: 'left', lineHeightFactor: 1.2, maxWidth: 270});
     pdf.text(capacitaciondesc, 162, 405, {align: 'left', lineHeightFactor: 1.2});
     pdf.text(evaluaciondesc, 162, 420, {align: 'left', lineHeightFactor: 1.2});
     pdf.text(porqueno, 122, 435, {align: 'justify', lineHeightFactor: 1.5, maxWidth: 230});
@@ -92,9 +92,9 @@ async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, pro
         }
 
     if (parseInt(evaluacion)===1) {
-        pdf.circle(148, 414, 4, 'FD');
+        pdf.circle(148, 415, 4, 'FD');
         } else {
-        pdf.circle(389, 414, 4, 'FD');
+        pdf.circle(389, 415, 4, 'FD');
         }
     if (parseInt(reqcalificacion)===1) {
         pdf.circle(282.5, 471, 4, 'FD');
