@@ -16,6 +16,7 @@ html
         script(src="../views/gen-pdf/jspdf.min.js")
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         script(src="../views/gen-pdf/gen-pdf.js")
+        script(src="https://code.jquery.com/jquery-1.12.4.min.js")
     body
         //----NAV BAR ----- 
         include nav.html
@@ -103,7 +104,7 @@ html
                                 div(class="col-md-12")
                                     div
                                         label(for="cambioa", class="form-label") Cambio a (Maximo 400 caracteres):
-                                        textarea(type="text", class="form-control" id="cambioa" maxlength="403")
+                                        textarea(type="text", class="form-control" id="cambioa" maxlength="398")
                             
                             div(class="row mb-3")
                                 label(class="form-label") Recursos Humanos
@@ -143,8 +144,8 @@ html
                                             input(type="radio", name="evaluacion", class="form-check-input", id="evaluacionno", value="0" checked)
                                             label(for="evaluacionno", class="form-check-label") No
                             div(class="row mb-3")
-                                label(for="porqueno", class="form-label") ¿Por qué no? a/b (110 caracteres)
-                                textarea(type="text", class="form-control" id="porqueno" maxlength="110")
+                                label(for="porqueno", class="form-label") ¿Por qué no? a/b (100 caracteres)
+                                textarea(type="text", class="form-control" id="porqueno" maxlength="100")
                             div(class="row mb-3")
                                 div(class="col-md-6")
                                     div
@@ -169,9 +170,9 @@ html
                             div(class="row-mb-3")
                                 div(cass="col-md-9")
                                     div
-                                        label(for="pruebas", class="form-label") Pruebas requeridas (referencia al protocolo de las pruebas) 70 caracteres:
+                                        label(for="pruebas", class="form-label") Pruebas requeridas (referencia al protocolo de las pruebas) 66 caracteres:
                                         hr
-                                        textarea(type="text", class="form-control", id="pruebas" maxlength="70")
+                                        textarea(type="text", class="form-control", id="pruebas" maxlength="66")
                             br
                             
                             div(class="row mb-3")
@@ -208,3 +209,6 @@ html
 
             // Establecer la fecha actual como valor predeterminado en el elemento de entrada de fecha
             document.getElementById('fechasoli').value = fechaFormateada;
+            document.getElementById('fechaefec').min= fechaFormateada;
+            document.getElementById('fechainicio').value = fechaFormateada;
+            document.getElementById('fechatermino').min = fechaFormateada;

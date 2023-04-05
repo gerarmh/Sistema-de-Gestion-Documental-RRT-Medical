@@ -27,15 +27,7 @@ window.addEventListener('load', async () => {
         let fechasoli = document.getElementById('fechasoli').value;
         let fechaefec = document.getElementById('fechaefec').value;
         let razon = document.getElementById('razon').value;
-        let procedformato = document.getElementById('procedformato').value;
-        let producto = document.getElementById('producto').value;
-        let matprima = document.getElementById('matprima').value;
-        let especificaciones = document.getElementById('especificaciones').value;
-        let proceso = document.getElementById('proceso').value;
-        let metanalisis = document.getElementById('metanalisis').value;
-        let equipos = document.getElementById('equipos').value;
-        let siscomputo = document.getElementById('siscomputo').value;
-        let instalaciones = document.getElementById('instalaciones').value;
+        let alcance = document.querySelectorAll('input[name="alcance"]:checked');
         let espectitulo = document.getElementById('espectitulo').value;
         let cambiode = document.getElementById('cambiode').value;
         let cambioa = document.getElementById('cambioa').value;
@@ -53,11 +45,11 @@ window.addEventListener('load', async () => {
         let fechatermino = document.getElementById('fechatermino').value;
 
 
-        generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, procedformato, producto, matprima, especificaciones, proceso, metanalisis, equipos, siscomputo, instalaciones, espectitulo, cambiode, cambioa, capacitacion, capacitaciondesc, evaluacion, evaluaciondesc, porqueno, reqcalificacion, nocalificacion, resultado, pruebas, responsable, fechainicio, fechatermino);
+        generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, alcance, espectitulo, cambiode, cambioa, capacitacion, capacitaciondesc, evaluacion, evaluaciondesc, porqueno, reqcalificacion, nocalificacion, resultado, pruebas, responsable, fechainicio, fechatermino);
     });
 });
 
-async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, procedformato, producto, matprima, especificaciones, proceso, metanalisis, equipos, siscomputo, instalaciones, espectitulo, cambiode, cambioa, capacitacion, capacitaciondesc, evaluacion, evaluaciondesc, porqueno, reqcalificacion, nocalificacion, resultado, pruebas, responsable, fechainicio, fechatermino) {
+async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, alcance, espectitulo, cambiode, cambioa, capacitacion, capacitaciondesc, evaluacion, evaluaciondesc, porqueno, reqcalificacion, nocalificacion, resultado, pruebas, responsable, fechainicio, fechatermino) {
     const image = await loadImage("../views/gen-pdf/formulario.png")
     const pdf = new jsPDF('p', 'pt', 'letter');
     pdf.addImage(image, 'PNG', 0, 0, 600, 756);
@@ -71,8 +63,8 @@ async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, pro
     pdf.text(razon, 122, 117, {align:'left', lineHeightFactor: 1.5, maxWidth: 450});
 
     pdf.text(espectitulo, 45, 220, {align:'justify', lineHeightFactor: 1.5, maxWidth: 510});
-    pdf.text(cambiode, 42, 316, {align: 'left', lineHeightFactor: 1.2, maxWidth: 220});
-    pdf.text(cambioa, 280, 316, {align: 'left', lineHeightFactor: 1.2, maxWidth: 270});
+    pdf.text(cambiode, 42, 316, {align: 'justify', lineHeightFactor: 1.2, maxWidth: 230});
+    pdf.text(cambioa, 280, 316, {align: 'justify', lineHeightFactor: 1.2, maxWidth: 275});
     pdf.text(capacitaciondesc, 162, 405, {align: 'left', lineHeightFactor: 1.2});
     pdf.text(evaluaciondesc, 162, 420, {align: 'left', lineHeightFactor: 1.2});
     pdf.text(porqueno, 122, 435, {align: 'justify', lineHeightFactor: 1.5, maxWidth: 230});
@@ -101,7 +93,40 @@ async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, pro
         } else {
         pdf.circle(349, 471, 4, 'FD');
         }
-
+    
+    alcance.forEach(checkbox => {
+        const value = checkbox.value;
+        switch (value) {
+            case '1':
+                pdf.circle(140, 161.5, 4, 'FD');
+                break;
+            case '2':
+                pdf.circle(232, 161.5, 4, 'FD');
+                break;
+            case '3':
+                pdf.circle(361.5, 161.5, 4, 'FD');
+                break;
+            case '4':
+                pdf.circle(466, 161.5, 4, 'FD');
+                break;
+            case '5':
+                pdf.circle(537, 161.5, 4, 'FD');
+                break;
+            case '6':
+                pdf.circle(140, 175, 4, 'FD');
+                break;
+            case '7':
+                pdf.circle(232, 175, 4, 'FD');
+                break;
+            case '8':
+                pdf.circle(361.5, 175.5, 4, 'FD');
+                break;
+            case '9':
+                pdf.circle(466, 175, 4, 'FD');
+                break;
+        }
+    })
+    
     pdf.save("example.pdf");
 
 }
