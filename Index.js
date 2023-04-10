@@ -1,11 +1,18 @@
+const { handleSubmit } = require('./controllers/loginController.js');
 const express = require('express');
 const port = 3000;
+const dotenv = require('dotenv');
 
 const router = require("./router/router");   
 const publicpath = __dirname.replace("app", "views")
 
+require('dotenv').config()
+
 const app = express();
 app.use(express.static(publicpath))
+app.use(express.urlencoded({
+  extended: true
+}))
 // Se indica el directorio donde se almacenarán las plantillas 
 app.set('views', './views');
 
@@ -21,6 +28,10 @@ app.get('/manual', (req, res) => {
 app.get('/obsoletos', (req, res) => {
   res.render('obsoletos.pug');
 });
+app.post('/authLogin', async (req, res) => {
+const resp = await handleSubmit(req.body.username, req.body.password);
+
+})
 app.get('/login', (req, res) => {
   res.render('login.pug');
 });

@@ -22,16 +22,16 @@ html
                 div(class="form-box login")
                     h2 Ingresa tus datos
                     div(class="line")
-                    form(action="#")
+                    form(action="/authLogin/" method="POST")
                         div(class="input-box")
                             span(class="icon")
                                 ion-icon(name="mail")
-                            input(type="email", required)
+                            input(type="text", required, name="username",id="username")
                             label Correo
                         div(class="input-box")
                             span(class="icon")
                                 ion-icon(name="lock-closed")
-                            input(type="password", required)
+                            input(type="password", required, name="password",id="password")
                             label Contraseña
                         div(class="remember-forgot")
                             <label><input type="checkbox"> Recordarme</label>
