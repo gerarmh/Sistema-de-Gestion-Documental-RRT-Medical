@@ -28,10 +28,10 @@ app.get('/manual', (req, res) => {
 app.get('/obsoletos', (req, res) => {
   res.render('obsoletos.pug');
 });
-app.post('/authLogin', async (req, res) => {
-const resp = await handleSubmit(req.body.username, req.body.password);
-
-})
+//app.post('/authLogin', async (req, res) => {
+//const resp = await handleSubmit(req.body.username, req.body.password);
+//
+//})
 app.get('/login', (req, res) => {
   res.render('login.pug');
 });
