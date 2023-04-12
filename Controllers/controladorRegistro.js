@@ -31,16 +31,30 @@ loginForm.addEventListener('submit', (event) => {
         // redirigir a una nueva página después de que se muestra la alerta
         window.location.href ='/';
       });
-
-    } else {
+    } else if (response.status == 403) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'No tiene permisos!',
+        text: 'El numero de empleado ya existe, ingrese uno distinto!',
         timer: 2000,
         showConfirmButton: false // ocultar el botón "OK" 
       });
-      //throw new Error('Inicio de sesión fallido');
+    } else if (response.status == 400) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El nombre de ususario ya existe, ingrese uno distinto!',
+        timer: 2000,
+        showConfirmButton: false // ocultar el botón "OK" 
+      });
+    } else if (response.status == 426) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No tiene permisos para realizar esta accion!',
+        timer: 2000,
+        showConfirmButton: false // ocultar el botón "OK" 
+      });
     }
   })
   .catch(error => {
