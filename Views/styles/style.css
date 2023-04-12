@@ -102,7 +102,8 @@ ul {
 
 header {
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     background-image: url('../images/banner.jpg');
     background-position: bottom;
     background-size: cover;
@@ -251,6 +252,12 @@ section {
     padding: 0 35px 0 5px;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 .input-box .icon {
     position: absolute;
     right: 8px;
@@ -378,6 +385,7 @@ section {
     align-items: start;
     flex-direction: column;
     height: 100%;
+    min-height: 100vh;
 }
 
 .titulo {
@@ -407,9 +415,13 @@ section {
     justify-content: center;
 }
 
-.caja img {
+.caja iframe {
     width: 100%;
+    height: 300px;
     border-radius: 20px;
+    pointer-events: none;
+    overflow: hidden;
+    border: none;
 }
 
 .caja {
@@ -427,6 +439,16 @@ section {
 
 .caja:hover {
     transform: translate(0,0);
+}
+
+.caja input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 90%;
+    background: none;
+    border-radius: 20px;
+    border-bottom: solid #4ab642 2px;
 }
 
 .image-title {
@@ -548,6 +570,51 @@ section {
     color: #3B3332;
 }
 
+/* registro styles */
+.register-header {
+    align-items: start;
+}
+
+.wrapper-registro {
+    margin: 100px auto;
+    position: relative;
+    width: 400px;
+    height: 500px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper-registro .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+.input-box select {
+    width: 100%;
+    border-radius: 20px;
+    background: none;
+    border:solid 1px#3B3332;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #211C1C;
+}
+
+#rol .option {
+    border-radius: 20px;
+    background: none;
+    font-size: 1em;
+    font-weight: bold;
+    color: #211C1C;
+    
+}
 
 /* Mobile device */
 @media only screen and (max-width: 850px) {

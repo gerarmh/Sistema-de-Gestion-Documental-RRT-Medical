@@ -1,29 +1,31 @@
-const loginForm = document.getElementById('login-form');
+const loginForm = document.getElementById('registro-form');
 
 loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
   const employenumber = document.getElementById('employenumber').value;
+  const username = document.getElementById('username').value;
+  const rolI = document.getElementById('rol').value;
+  const rol = [rolI];
   const password = document.getElementById('password').value;
+  const token = localStorage.getItem('token');
 
-  fetch('http://localhost:4600/api/auth/singin', {
+  fetch('http://localhost:4600/api/users', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'x-access-token': token
     },
-    body: JSON.stringify({ employenumber, password })
+    body: JSON.stringify({ username, employenumber, password, rol })
   })
-  .then(response => response.json())
-  .then(data => {
-    const token = data.token;
-    localStorage.setItem('token', token);
-    if (token) {
+  .then(response => {
+    if (response.ok) {
       // Inicio de sesión exitoso, redirecciona al usuario
       Swal.fire({
-        title:'Sesion Iniciada!',
+        title:'Usuario Registrado!',
         text:'Continuar!',
         icon:'success',
-        timer: 2000, // tiempo en milisegundos (3 segundos)
+        timer: 2000,
         showConfirmButton: false, // ocultar el botón "OK"
       }).then(() => {
         // redirigir a una nueva página después de que se muestra la alerta
@@ -34,8 +36,8 @@ loginForm.addEventListener('submit', (event) => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Usuario no encontrado, verifica tus credenciales!',
-        timer: 2000, // tiempo en milisegundos (3 segundos)
+        text: 'No tiene permisos!',
+        timer: 2000,
         showConfirmButton: false // ocultar el botón "OK" 
       });
       //throw new Error('Inicio de sesión fallido');

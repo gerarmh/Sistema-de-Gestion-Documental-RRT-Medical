@@ -45,5 +45,9 @@ app.get('/login', (req, res) => {
 app.get('/solicitud', (req, res) => {
   res.render('solicitud.pug');
 });
+app.get('/registrar', (req, res) => {
+  res.render('registrar.pug');
+});
 
-app.listen(port, () => console.log(`Servidor iniciado en el puerto ${port}`));
+app.listen(port, () => console.log(`Server listen on ${port}`));
+console.log('RRT FRONT IS ON LINE')
