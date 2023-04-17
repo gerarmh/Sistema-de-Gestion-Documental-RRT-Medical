@@ -406,8 +406,40 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: bold;
 }
 
+.titulo .buscar {
+    margin-top: 10px;
+    color: #fff;
+    background-color: #3B3332;
+    opacity: 80%;
+    border-radius: 20px;
+    padding-bottom: 10px;
+}
+
+.nombre_a {
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.titulo .buscar button {
+    background: #211C1C;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+.titulo .buscar button:hover {
+    color: #4ab642;
+}
+
 .container-manual {
     width: 100%;
+    padding-top: 30px;
     margin: 0px auto ;
     margin-bottom: 20px;
     display: flex;
@@ -434,7 +466,7 @@ input[type=number]::-webkit-outer-spin-button {
     backdrop-filter: blur(50px);
     box-shadow: 0 0 30px rgba(0, 0, 0, .5);
     text-align: center;
-    line-height: 60px;
+    line-height: 40px;
     width: 200px;
     margin: 15px;
     transform: translateY(10px);
@@ -453,10 +485,17 @@ input[type=number]::-webkit-outer-spin-button {
     background: none;
     border-radius: 20px;
     border-bottom: solid #4ab642 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.caja .folio{
+    border-bottom: none;
 }
 
 .image-title {
-    margin-top: -30px;
+    position:relative;
+    top: -10px;
     text-align: center;
     font-size: 20px;
     color: #3B3332;
@@ -623,6 +662,92 @@ input[type=number]::-webkit-outer-spin-button {
     
 }
 
+/* rmanual styles */
+.manual-header {
+    align-items: start;
+}
+
+.wrapper-manual {
+    margin: 100px auto;
+    position: relative;
+    width: 400px;
+    height: 550px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper-manual .form-box {
+    width: 100%;
+    padding: 40px;
+}
+.select {
+    border-bottom: none;
+}
+
+.input-box select {
+    width: 100%;
+    border-radius: 20px;
+    background: none;
+    border:solid 1px#3B3332;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #211C1C;
+}
+
+#rol .option {
+    border-radius: 20px;
+    background: none;
+    font-size: 1em;
+    font-weight: bold;
+    color: #211C1C;
+}
+
+.custom-input-file {
+    cursor: pointer;
+    width: 200px;
+    border-radius: 20px;
+    background: none;
+    border:solid 1px#3B3332;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #211C1C;
+}
+
+.custom-input-file #archivo {
+    opacity: 0;
+}
+
+.custom-input-file {
+    text-align: center;
+}
+
+.custom-input-file h3 {
+    margin-top: -35px;
+}
+
+.input-box #cancelar {
+    margin-top: -10px;
+    transform: scale(0);
+    transition: .5s ease;
+}
+
+.input-box #btn-cancelar {
+    width: 90px;
+    height: 30px;
+    font-weight: lighter;
+}
+
+
 /* Mobile device */
 @media only screen and (max-width: 850px) {
     .admin-header {
@@ -756,6 +881,7 @@ input[type=number]::-webkit-outer-spin-button {
 
     .caja {
         width: 150px;
+        line-height: 30px;
     }
 
     .image-title {

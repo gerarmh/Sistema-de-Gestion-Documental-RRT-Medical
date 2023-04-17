@@ -4,7 +4,7 @@ html
         meta(charset="utf-8")
         meta(http-equiv="X-UA-Compatible" content="IE=edge")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
-        title="Registrar Usuarios"
+        title="Registrar Procedimientos"
         link(rel="shortcut icon", href="../views/images/pestaña.png")
         link(rel="stylesheet", type="text/css", href="../views/styles/style.css")
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;1,200&display=swap" rel="stylesheet">
@@ -15,32 +15,33 @@ html
     body
         //----NAV BAR -----
         include nav.html
-        header(class="register-header")
-            div(class="wrapper-registro")
+        header(class="manual-header")
+            div(class="wrapper-manual")
                 div(class="form-box registro")
-                    h2 Registrar usuario
+                    h2 Registrar Procedimiento
                     div(class="line")
-                    form(id="registro-form")
+                    form(id="rmanual-form")
                         div(class="input-box")
                             span(class="icon")
-                                ion-icon(name="id-card")
-                            input(type="number",id="employenumber", required)
-                            label Numero de empleado
+                                ion-icon(name="create")
+                            input(type="text",id="Name", required)
+                            label Nombre del Procedimiento
                         div(class="input-box")
                             span(class="icon")
-                                ion-icon(name="person-circle")
-                            input(type="text",id="username", required)
-                            label Nombre de usuario
+                                ion-icon(name="albums")
+                            input(type="number",id="Folio", required)
+                            label Folio
                         div(class="input-box")
-                            select(id="rol")
-                                option(value="Revisor") Revisor
-                                option(value="CommonUser") Usuario Comun
+                            select(id="Area")
+                                option(value="QA") Asuntos Regulatorios
                         div(class="input-box")
-                            span(class="icon")
-                                ion-icon(name="lock-closed")
-                            input(type="password",id="password", required)
-                            label Contraseña
-                        button(type="submit" class="btn") Registrar Usuario
+                            span(class="icon" id="cancelar")
+                                button(class="btn" id="btn-cancelar") Cancelar
+                            div(class="custom-input-file")
+                                input(type="file", class="archivo",id="archivo", multiple="false", accept="application/pdf", required)
+                                h3(id="vacio", style="display:block;") Cargar archivo...
+                                h3(id="subido", style="display:none;") Archivo Cargado
+                        button(type="submit" class="btn") Registrar Procedimiento
         include footer.html
         script. 
             const menuBtn = document.querySelector('.menu-btn')
@@ -48,6 +49,6 @@ html
             menuBtn.addEventListener('click', () => {
                 navlinks.classList.toggle('mobile-menu')
             })
-        script(src="../Controllers/controladorRegistro.js")
+        script(src="../Controllers/controladorRManual.js")
         script(type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js")
         script(nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js")

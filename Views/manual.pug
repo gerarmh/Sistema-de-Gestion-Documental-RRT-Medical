@@ -16,6 +16,10 @@ html
         include nav.html
         header(class="manual-header")
             div(class="titulo") Manual de Procedimientos
+                form(class="buscar" onsubmit="ocultarA(), event.preventDefault();")
+                  label(class="for_nombre_a" for="nombre_a") Buscar por folio:
+                  input(class="nombre_a" type="text" id="nombre_a" name="nombre_a")
+                  button(type="button" onclick="ocultarA()") Buscar
             div(class="container-manual")
         include footer.html
         script(src="../controllers/controladorManual.js")

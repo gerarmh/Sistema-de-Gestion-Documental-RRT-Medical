@@ -43,7 +43,7 @@ loginForm.addEventListener('submit', (event) => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'El nombre de ususario ya existe, ingrese uno distinto!',
+        text: 'El nombre de usuario ya existe, ingrese uno distinto!',
         timer: 2000,
         showConfirmButton: false // ocultar el botón "OK" 
       });
@@ -52,6 +52,14 @@ loginForm.addEventListener('submit', (event) => {
         icon: 'error',
         title: 'Oops...',
         text: 'No tiene permisos para realizar esta accion!',
+        timer: 2000,
+        showConfirmButton: false // ocultar el botón "OK" 
+      });
+    } else if (response.status == 401) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No hay una sesion activa!',
         timer: 2000,
         showConfirmButton: false // ocultar el botón "OK" 
       });
