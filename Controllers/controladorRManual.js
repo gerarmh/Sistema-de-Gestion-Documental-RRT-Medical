@@ -6,7 +6,7 @@ rmanualForm.addEventListener('submit', (event) => {
 const nombre = document.getElementById('Name').value;
 const folio = document.getElementById('Folio').value;
 const area = document.getElementById('Area').value;
-const archivo = document.getElementById('archivo').files;
+const archivo = document.getElementById('archivo').files[0];
 const token = localStorage.getItem('token');
 
 // Crear objeto FormData
@@ -20,7 +20,6 @@ formData.append('archivo', archivo);
 fetch('http://localhost:4600/api/manual', {
   method: 'POST',
   headers: {
-    'Content-Type' : 'multipart/form-data',
     'x-access-token': token
 },
   body: formData
@@ -37,11 +36,27 @@ fetch('http://localhost:4600/api/manual', {
         // redirigir a una nueva página después de que se muestra la alerta
         window.location.href ='/';
       });
-    } else {
+    } else if (response.status === 400){
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Ha ocurrido un error al registrar el procedimiento!',
+        text: 'Ese folio ya ha sido registrado, ingresa uno diferente!',
+        timer: 2000,
+        showConfirmButton: false // ocultar el botón "OK" 
+      });
+    } else if (response.status === 403){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No hay una sesion activa, inicie sesion para realizar los cambios!',
+        timer: 2000,
+        showConfirmButton: false // ocultar el botón "OK" 
+      });
+    } else if (response.status === 426) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No tiene permisos para realizar esta accion',
         timer: 2000,
         showConfirmButton: false // ocultar el botón "OK" 
       });

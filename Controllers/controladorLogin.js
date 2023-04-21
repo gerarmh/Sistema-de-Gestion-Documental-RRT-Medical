@@ -34,7 +34,7 @@ loginForm.addEventListener('submit', (event) => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Usuario no encontrado, verifica tus credenciales!',
+        text: 'Usuario no encontrado o datos incorrectos, verifica tus credenciales!',
         timer: 2000, // tiempo en milisegundos (3 segundos)
         showConfirmButton: false // ocultar el botón "OK" 
       });

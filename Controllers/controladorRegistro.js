@@ -31,7 +31,7 @@ loginForm.addEventListener('submit', (event) => {
         // redirigir a una nueva página después de que se muestra la alerta
         window.location.href ='/';
       });
-    } else if (response.status == 403) {
+    } else if (response.status == 400) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -39,7 +39,7 @@ loginForm.addEventListener('submit', (event) => {
         timer: 2000,
         showConfirmButton: false // ocultar el botón "OK" 
       });
-    } else if (response.status == 400) {
+    } else if (response.status == 409) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',

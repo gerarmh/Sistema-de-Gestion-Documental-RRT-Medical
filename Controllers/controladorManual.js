@@ -7,22 +7,42 @@ fetch('http://localhost:4600/api/manual')
   const divContainer = document.querySelector('.container-manual');
 
   data.forEach(dato => {
-    const nombre = dato.Name;
+    const nombre = dato.nombre;
+    const folio = dato.folio;
+
+    const archivoBuffer = new Uint8Array(dato.archivo.data);
+    const archivoBlob = new Blob([archivoBuffer], { type: 'application/pdf' });
+    const fileReader = new FileReader();
+    
+    fileReader.readAsDataURL(archivoBlob);
+  
+    fileReader.onloadend = () => {
+    const dataUrl = fileReader.result;
 
     const divCaja = document.createElement('div');
     divCaja.setAttribute('class', 'caja');
-    
+
     const referencia = document.createElement('a');
-    referencia.setAttribute('href', '../pdf/vigentes/' + nombre + '.pdf#toolbar=0');
-    referencia.setAttribute('id', dato.Folio);
+    referencia.setAttribute('href', 'javascript:void(0)');
+    referencia.setAttribute('id', folio);
+
+    referencia.addEventListener('click', () => {
+      const newWindow = window.open();
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('src', `${dataUrl}#toolbar=0`);
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      newWindow.document.body.appendChild(iframe);
+      //window.open(`${dataUrl}#toolbar=0`, '_blank');
+    });
 
     const vistaPrevia = document.createElement('iframe');
-    vistaPrevia.setAttribute('src', '../pdf/vigentes/' + nombre + '.pdf#page=1');
+    vistaPrevia.setAttribute('src', `${dataUrl}#page=1`);
     divCaja.appendChild(vistaPrevia);
 
     const  folioInput = document.createElement('input');
     folioInput.setAttribute('type', 'text');
-    folioInput.value = dato.Folio;
+    folioInput.value = folio;
     folioInput.setAttribute('readOnly', 'true');
     folioInput.setAttribute('class', 'image-title folio');
     folioInput.setAttribute('disabled', 'true');
@@ -30,7 +50,7 @@ fetch('http://localhost:4600/api/manual')
 
     const  nombreInput = document.createElement('input');
     nombreInput.setAttribute('type', 'text');
-    nombreInput.value = dato.Name;
+    nombreInput.value = nombre;
     nombreInput.setAttribute('readOnly', 'true');
     nombreInput.setAttribute('class', 'image-title');
     nombreInput.setAttribute('disabled', 'true');
@@ -38,7 +58,7 @@ fetch('http://localhost:4600/api/manual')
 
     referencia.appendChild(divCaja);
     divContainer.appendChild(referencia);
-    
+    }
     
   });
   // Manejar los datos obtenidos de la API
