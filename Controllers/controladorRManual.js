@@ -6,6 +6,7 @@ rmanualForm.addEventListener('submit', (event) => {
 const nombre = document.getElementById('Name').value;
 const folio = document.getElementById('Folio').value;
 const area = document.getElementById('Area').value;
+const vigencia = "vigente";
 const archivo = document.getElementById('archivo').files[0];
 const token = localStorage.getItem('token');
 
@@ -14,6 +15,7 @@ const formData = new FormData();
 formData.append('nombre', nombre);
 formData.append('folio', folio);
 formData.append('area', area);
+formData.append('vigencia', vigencia);
 formData.append('archivo', archivo);
 
 // Enviar la solicitud con fetch
@@ -44,7 +46,7 @@ fetch('http://localhost:4600/api/manual', {
         timer: 2000,
         showConfirmButton: false // ocultar el botón "OK" 
       });
-    } else if (response.status === 403){
+    } else if ((response.status === 403) || (response.status === 405)){
       Swal.fire({
         icon: 'error',
         title: 'Oops...',

@@ -7,6 +7,7 @@ fetch('http://localhost:4600/api/manual')
   const divContainer = document.querySelector('.container-manual');
 
   data.forEach(dato => {
+    if (dato.vigencia === "vigente") {
     const nombre = dato.nombre;
     const folio = dato.folio;
 
@@ -59,7 +60,7 @@ fetch('http://localhost:4600/api/manual')
     referencia.appendChild(divCaja);
     divContainer.appendChild(referencia);
     }
-    
+  }
   });
   // Manejar los datos obtenidos de la API
 })
