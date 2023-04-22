@@ -11,6 +11,7 @@ fetch('http://localhost:4600/api/manual')
     const nombre = dato.nombre;
     const folio = dato.folio;
     const area = dato.area;
+    const fecha = dato.date;
 
     const archivoBuffer = new Uint8Array(dato.archivo.data);
     const archivoBlob = new Blob([archivoBuffer], { type: 'application/pdf' });
@@ -37,7 +38,7 @@ fetch('http://localhost:4600/api/manual')
 
     const Lfecha = document.createElement('td');
     Lfecha.setAttribute('data-label', 'Fecha');
-    Lfecha.textContent = "16/02/2023";
+    Lfecha.textContent = fecha;
     interior.appendChild(Lfecha);
 
     const Lfolio = document.createElement('td');
@@ -73,6 +74,7 @@ fetch('http://localhost:4600/api/manual')
     const activador = document.createElement('input');
     activador.setAttribute('type', 'checkbox');
     activador.setAttribute('id', 'btn-modal');
+    //activador.setAttribute('data-url', dataUrl);
     Lprocedimiento.appendChild(activador);
 
     const cmodal = document.createElement('div');
@@ -97,11 +99,8 @@ fetch('http://localhost:4600/api/manual')
     modalPdf.style.width = '90%';
     modalPdf.style.height = '90%';
     ctmodal.appendChild(modalPdf);
-
-
     }
 
-    
   }
   });
   // Manejar los datos obtenidos de la API
