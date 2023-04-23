@@ -71,34 +71,44 @@ fetch('http://localhost:4600/api/manual')
     lmodal.textContent = 'Ver';
     modal.appendChild(lmodal);
 
-    const activador = document.createElement('input');
-    activador.setAttribute('type', 'checkbox');
-    activador.setAttribute('id', 'btn-modal');
-    //activador.setAttribute('data-url', dataUrl);
-    Lprocedimiento.appendChild(activador);
+    modal.addEventListener('click', () => {
+      const newWindow = window.open();
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('src', `${dataUrl}#toolbar=0`);
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      newWindow.document.body.appendChild(iframe);
+      //window.open(`${dataUrl}#toolbar=0`, '_blank');
+    });
 
-    const cmodal = document.createElement('div');
-    cmodal.setAttribute('class', 'container-modal');
-    Lprocedimiento.appendChild(cmodal);
-
-    const ctmodal = document.createElement('div');
-    ctmodal.setAttribute('class', 'content-modal');
-    cmodal.appendChild(ctmodal);
-
-    const cerrar = document.createElement('div');
-    cerrar.setAttribute('class', 'btn-cerrar');
-    ctmodal.appendChild(cerrar);
-
-    const lcerrar = document.createElement('label');
-    lcerrar.setAttribute('for', 'btn-modal');
-    lcerrar.textContent = 'Cerrar';
-    cerrar.appendChild(lcerrar);
-    
-    const modalPdf = document.createElement('iframe');
-    modalPdf.setAttribute('src', `${dataUrl}#toolbar=0`);
-    modalPdf.style.width = '90%';
-    modalPdf.style.height = '90%';
-    ctmodal.appendChild(modalPdf);
+//    const activador = document.createElement('input');
+//    activador.setAttribute('type', 'checkbox');
+//    activador.setAttribute('id', 'btn-modal');
+//    //activador.setAttribute('data-url', dataUrl);
+//    Lprocedimiento.appendChild(activador);
+//
+//    const cmodal = document.createElement('div');
+//    cmodal.setAttribute('class', 'container-modal');
+//    Lprocedimiento.appendChild(cmodal);
+//
+//    const ctmodal = document.createElement('div');
+//    ctmodal.setAttribute('class', 'content-modal');
+//    cmodal.appendChild(ctmodal);
+//
+//    const cerrar = document.createElement('div');
+//    cerrar.setAttribute('class', 'btn-cerrar');
+//    ctmodal.appendChild(cerrar);
+//
+//    const lcerrar = document.createElement('label');
+//    lcerrar.setAttribute('for', 'btn-modal');
+//    lcerrar.textContent = 'Cerrar';
+//    cerrar.appendChild(lcerrar);
+//    
+//    const modalPdf = document.createElement('iframe');
+//    modalPdf.setAttribute('src', `${dataUrl}#toolbar=0`);
+//    modalPdf.style.width = '90%';
+//    modalPdf.style.height = '90%';
+//    ctmodal.appendChild(modalPdf);
     }
 
   }
