@@ -380,6 +380,10 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: center;
 }
 
+.admin-table .alcance {
+    text-align: left;
+}
+
 /* manual styles */
 .manual-header {
     align-items: start;
@@ -854,6 +858,10 @@ input[type=number]::-webkit-outer-spin-button {
     .admin-table td {
         display: block;
         border-bottom: 1px;
+        text-align: right;
+    }
+
+    .admin-table .alcance {
         text-align: right;
     }
 

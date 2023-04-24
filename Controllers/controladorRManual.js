@@ -6,7 +6,7 @@ rmanualForm.addEventListener('submit', (event) => {
 const nombre = document.getElementById('Name').value;
 const folio = document.getElementById('Folio').value;
 const area = document.getElementById('Area').value;
-const vigencia = "obsoleto";
+const vigencia = "vigente";
 const archivo = document.getElementById('archivo').files[0];
 const token = localStorage.getItem('token');
 

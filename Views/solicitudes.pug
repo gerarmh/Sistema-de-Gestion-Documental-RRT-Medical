@@ -21,37 +21,15 @@ html
                         tr
                             th Procedimiento
                             th Area 
-                            th Cambios a realizar
+                            th Alcance
                             th Folio 
+                            th Anexos
                             th Aprobar/Rechazar
                             th Estado 
                             th Cambios aplicados
-                    tbody 
-                        tr(class="tr-interior")
-                            td(data-label="Procedimiento") Control de cambios 
-                            td(data-label="Area") Asuntos Regulatorios 
-                            td(data-label="Cambios a realizar") Cambios referentes a la redaccion  
-                            td(data-label="Folio") Q-1533-S 
-                            td(data-label="Aprobar/Rechazar") Aceptar 
-                            td(data-label="Estado") Aprobado
-                            td(data-label="Cambios aplicaos") Ver
-                        tr(class="tr-interior")
-                            td(data-label="Procedimiento") Control de cambios 
-                            td(data-label="Area") Asuntos Regulatorios 
-                            td(data-label="Cambios a realizar") Cambios referentes a la redaccion  
-                            td(data-label="Folio") Q-1533-S 
-                            td(data-label="Aprobar/Rechazar") Aceptar 
-                            td(data-label="Estado") Aprobado
-                            td(data-label="Cambios aplicaos") Ver
-                        tr(class="tr-interior")
-                            td(data-label="Procedimiento") Control de cambios 
-                            td(data-label="Area") Asuntos Regulatorios 
-                            td(data-label="Cambios a realizar") Cambios referentes a la redaccion  
-                            td(data-label="Folio") Q-1533-S 
-                            td(data-label="Aprobar/Rechazar") Aceptar 
-                            td(data-label="Estado") Aprobado
-                            td(data-label="Cambios aplicaos") Ver
+                    tbody(id="contenedor")
         include footer.html
+        script(src="./controllers/controladorSolicitudes.js")
         script. 
             const menuBtn = document.querySelector('.menu-btn')
             const navlinks = document.querySelector('.nav-links')
