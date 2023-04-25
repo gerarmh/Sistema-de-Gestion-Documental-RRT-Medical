@@ -5,10 +5,8 @@ window.addEventListener('load', () => {
  .then(data => {
  
    const tbody = document.getElementById('contenedor');
-   const userid = localStorage.getItem('id');
  
    data.forEach(dato => {
-    if (userid === dato.userid) {
      const nombre = dato.nombredelsolicitante;
      const folio = dato.folio;
      const area = dato.area;
@@ -16,6 +14,7 @@ window.addEventListener('load', () => {
      const id = dato._id;
      const estado = dato.estado;
      const token = localStorage.getItem('token');
+     const userid = localStorage.getItem('id');
  
      const interior = document.createElement('tr');
      interior.setAttribute('class', 'tr-interior');
@@ -188,7 +187,6 @@ window.addEventListener('load', () => {
        //});
    
      //}
-      }
        })
        
       // Manejar los datos obtenidos de la API

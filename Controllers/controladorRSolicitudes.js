@@ -27,6 +27,7 @@ const fechaini = document.getElementById('fechainicio').value;
 const fechater = document.getElementById('fechatermino').value;
 const archivo = document.getElementById('anexo').files[0];
 const token = localStorage.getItem('token');
+const userid = localStorage.getItem('id');
 
 const Alcance = [];
 valcance.forEach(checkbox => {
@@ -36,6 +37,7 @@ valcance.forEach(checkbox => {
 // Crear objeto FormData
 const formData = new FormData();
 formData.append('nombredelsolicitante', nombredelsolicitante);
+formData.append('userid', userid);
 formData.append('folio', folio);
 formData.append('area', area);
 formData.append('fechadesoli', fechadesoli);
@@ -77,7 +79,7 @@ fetch('http://localhost:4600/api/soli', {
       showConfirmButton: false, // ocultar el botón "OK"
     }).then(() => {
       // redirigir a una nueva página después de que se muestra la alerta
-      //window.location.href ='/';
+      window.location.href ='/';
     });
   } else {
     Swal.fire({
