@@ -16,6 +16,10 @@ loginForm.addEventListener('submit', (event) => {
   .then(response => response.json())
   .then(data => {
     const token = data.token;
+    const employenumber = data.decoded.employenumber;
+    const rol = data.decoded.rol;
+    localStorage.setItem('rol', rol)
+    localStorage.setItem('employenumber', employenumber);
     localStorage.setItem('token', token);
     if (token) {
       // Inicio de sesión exitoso, redirecciona al usuario
