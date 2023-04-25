@@ -16,10 +16,15 @@ loginForm.addEventListener('submit', (event) => {
   .then(response => response.json())
   .then(data => {
     const token = data.token;
-    const employenumber = data.decoded.employenumber;
+    const id = data.decoded.id;
+    const username = data.decoded.username;
     const rol = data.decoded.rol;
-    localStorage.setItem('rol', rol)
-    localStorage.setItem('employenumber', employenumber);
+
+    localStorage.setItem('id', id);
+    localStorage.setItem('username', username);
+    rol.forEach(rol => {
+      localStorage.setItem('rol', rol.name);
+    })
     localStorage.setItem('token', token);
     if (token) {
       // Inicio de sesión exitoso, redirecciona al usuario

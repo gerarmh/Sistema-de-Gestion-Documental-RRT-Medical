@@ -11,16 +11,6 @@ window.addEventListener('load', () => {
         const folio = dato.folio;
         const area = dato.area;
         const alcance = dato.Alcance;
-        const id = dato.id;
-    
-        const archivoBuffer = new Uint8Array(dato.archivo.data);
-        const archivoBlob = new Blob([archivoBuffer], { type: 'application/pdf' });
-        const fileReader = new FileReader();
-        
-        fileReader.readAsDataURL(archivoBlob);
-      
-        fileReader.onloadend = () => {
-        const dataUrl = fileReader.result;
     
         const interior = document.createElement('tr');
         interior.setAttribute('class', 'tr-interior');
@@ -89,24 +79,40 @@ window.addEventListener('load', () => {
         interior.appendChild(anexos);
 
         // Anexos
+        if (dato.archivo) {
+          const archivoBuffer = new Uint8Array(dato.archivo.data);
+          const archivoBlob = new Blob([archivoBuffer], { type: 'application/pdf' });
+          const fileReader = new FileReader();
+          
+          fileReader.readAsDataURL(archivoBlob);
+        
+          fileReader.onloadend = () => {
+          const dataUrl = fileReader.result;
+  
+          const refanexos = document.createElement('div');
+          refanexos.setAttribute('class', 'boton-modal');
+          anexos.appendChild(refanexos);
+      
+          const lanexos = document.createElement('label');
+          lanexos.setAttribute('for', 'btn-modal');
+          lanexos.textContent = 'Ver';
+          refanexos.appendChild(lanexos);
+      
+          refanexos.addEventListener('click', () => {
+            const newWindow = window.open();
+            const iframe = document.createElement('iframe');
+            iframe.setAttribute('src', `${dataUrl}#toolbar=0`);
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            newWindow.document.body.appendChild(iframe);
+          });
+  
+        }
+      } else { 
+        anexos.textContent = "No hay anexos";
+      }
 
-        const refanexos = document.createElement('div');
-        refanexos.setAttribute('class', 'boton-modal');
-        anexos.appendChild(refanexos);
-    
-        const lanexos = document.createElement('label');
-        lanexos.setAttribute('for', 'btn-modal');
-        lanexos.textContent = 'Ver';
-        refanexos.appendChild(lanexos);
-    
-        refanexos.addEventListener('click', () => {
-          const newWindow = window.open();
-          const iframe = document.createElement('iframe');
-          iframe.setAttribute('src', `${dataUrl}#toolbar=0`);
-          iframe.style.width = '100%';
-          iframe.style.height = '100%';
-          newWindow.document.body.appendChild(iframe);
-        });
+
 
     
       //}
@@ -171,8 +177,8 @@ window.addEventListener('load', () => {
 
     
       //}
-        }
-      });
+        })
+        
       // Manejar los datos obtenidos de la API
     })
     .catch(error => {
