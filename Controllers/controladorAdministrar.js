@@ -7,14 +7,13 @@ window.addEventListener('load', () => {
    const tbody = document.getElementById('contenedor');
  
    data.forEach(dato => {
+    if (dato.estado.length === 0) {
      const nombre = dato.nombredelsolicitante;
      const folio = dato.folio;
      const area = dato.area;
      const alcance = dato.Alcance;
      const id = dato._id;
      const estado = dato.estado;
-     const token = localStorage.getItem('token');
-     const userid = localStorage.getItem('id');
  
      const interior = document.createElement('tr');
      interior.setAttribute('class', 'tr-interior');
@@ -74,83 +73,29 @@ window.addEventListener('load', () => {
      Lfolio.setAttribute('data-label', 'Folio');
      Lfolio.textContent = folio;
      interior.appendChild(Lfolio);
-     const anexos = document.createElement('td');
-     anexos.setAttribute('data-label', 'Anexos');
-     interior.appendChild(anexos);
-     // Anexos
-     if (dato.anexo) {
-       const archivoBuffer = new Uint8Array(dato.anexo.data);
-       const archivoBlob = new Blob([archivoBuffer], { type: 'application/pdf' });
-       const fileReader = new FileReader();
-       
-       fileReader.readAsDataURL(archivoBlob);
-     
-       fileReader.onloadend = () => {
-       const dataUrl = fileReader.result;
-       const refanexos = document.createElement('div');
-       refanexos.setAttribute('class', 'boton-modal');
-       anexos.appendChild(refanexos);
+
+     const solicitud = document.createElement('td');
+     solicitud.setAttribute('data-label', 'Solicitud');
+     interior.appendChild(solicitud);
+
+     const refsolicitud = document.createElement('div');
+     refsolicitud.setAttribute('class', 'boton-modal');
+     solicitud.appendChild(refsolicitud);
    
-       const lanexos = document.createElement('label');
-       lanexos.setAttribute('for', 'btn-modal');
-       lanexos.textContent = 'Ver';
-       refanexos.appendChild(lanexos);
+     const lsolicitud = document.createElement('label');
+     lsolicitud.setAttribute('for', 'btn-modal');
+     lsolicitud.textContent = 'Ver';
+     refsolicitud.appendChild(lsolicitud);
    
-       refanexos.addEventListener('click', () => {
-         const newWindow = window.open();
-         const iframe = document.createElement('iframe');
-         iframe.setAttribute('src', `${dataUrl}#toolbar=0`);
-         iframe.style.width = '100%';
-         iframe.style.height = '100%';
-         newWindow.document.body.appendChild(iframe);
-       });
-     }
-      } else { 
-        anexos.textContent = "No hay anexos";
-      }
-
-      //aprobar
-       
-       const Lsolicitudes = document.createElement('td');
-       Lsolicitudes.setAttribute('data-label', 'Aprobar/Rechazar');
-       interior.appendChild(Lsolicitudes);
-
-      if (estado.includes(userid)){
-        const aprobar = document.createElement('div');
-        aprobar.setAttribute('class', 'boton-modal');
-        Lsolicitudes.appendChild(aprobar);
-    
-        const laprobar = document.createElement('label');
-        laprobar.setAttribute('for', 'btn-modal');
-        laprobar.textContent = 'Aprobar';
-        aprobar.appendChild(laprobar);
-        aprobar.addEventListener('click', () => {
-          fetch(`http://localhost:4600/api/soli/${id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-access-token': token
-            },
-            body: JSON.stringify({userid})
-          })
-          .then(response => {
-            if (response.ok) {
-              Swal.fire({
-                title:'Has aceptado la solicitud!',
-                text:'Continuar!',
-                icon:'success',
-                timer: 2000, // tiempo en milisegundos (3 segundos)
-                showConfirmButton: false, // ocultar el botón "OK"
-              })
-              Lsolicitudes.textContent = "Aprobado";
-            }
-          })
-          .catch(error => console.error(error));
-        });
-      } else {
-        Lsolicitudes.textContent = "Aprobado"
-      }
-
+//       refanexos.addEventListener('click', () => {
+//         const newWindow = window.open();
+//         const iframe = document.createElement('iframe');
+//         iframe.setAttribute('src', `${dataUrl}#toolbar=0`);
+//         iframe.style.width = '100%';
+//         iframe.style.height = '100%';
+//         newWindow.document.body.appendChild(iframe);
+//       });
+//     }
        //estado
        const Lestado = document.createElement('td');
        Lestado.setAttribute('data-label', 'Estado');
@@ -162,7 +107,7 @@ window.addEventListener('load', () => {
        interior.appendChild(Lestado);
    
        const Laplicados = document.createElement('td');
-       Laplicados.setAttribute('data-label', 'Solicitud');
+       Laplicados.setAttribute('data-label', 'Enviar');
        interior.appendChild(Laplicados);
    
        // Modal
@@ -173,7 +118,7 @@ window.addEventListener('load', () => {
    
        const lmodal = document.createElement('label');
        lmodal.setAttribute('for', 'btn-modal');
-       lmodal.textContent = 'Ver';
+       lmodal.textContent = 'Subir';
        modal.appendChild(lmodal);
    
        //modal.addEventListener('click', () => {
@@ -187,6 +132,7 @@ window.addEventListener('load', () => {
        //});
    
      //}
+      }
        })
        
       // Manejar los datos obtenidos de la API

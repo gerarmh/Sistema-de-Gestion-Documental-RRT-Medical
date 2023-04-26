@@ -11,6 +11,7 @@ html
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;1,200&family=Nunito:wght@900&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     body
         //----NAV BAR -----
         include nav.html
@@ -23,39 +24,12 @@ html
                             th Area 
                             th Solicitante
                             th Folio 
-                            th Estado 
-                            th Solicitud 
-                            th Procedimiento 
+                            th Solicitud
+                            th Estado
                             th Enviar
-                    tbody 
-                        tr(class="tr-interior")
-                            td(data-label="Solicitudes") Control de cambios 
-                            td(data-label="Area") Asuntos Regulatorios 
-                            td(data-label="Solicitante") José de Dios 
-                            td(data-label="Folio") Q-1533-S 
-                            td(data-label="Estado") Aprobado 
-                            td(data-label="Solicitud") Ver
-                            td(data-label="Procedimiento") Subir
-                            td(data-label="Enviar") Enviar
-                        tr(class="tr-interior")
-                            td(data-label="Solicitudes") Control de cambios 
-                            td(data-label="Area") Asuntos Regulatorios 
-                            td(data-label="Solicitante") José de Dios 
-                            td(data-label="Folio") Q-1533-S 
-                            td(data-label="Estado") Aprobado 
-                            td(data-label="Solicitud") Ver
-                            td(data-label="Procedimiento") Subir
-                            td(data-label="Enviar") Enviar
-                        tr(class="tr-interior")
-                            td(data-label="Solicitudes") Control de cambios 
-                            td(data-label="Area") Asuntos Regulatorios 
-                            td(data-label="Solicitante") José de Dios 
-                            td(data-label="Folio") Q-1533-S 
-                            td(data-label="Estado") Aprobado 
-                            td(data-label="Solicitud") Ver
-                            td(data-label="Procedimiento") Subir
-                            td(data-label="Enviar") Enviar
+                    tbody(id="contenedor") 
         include footer.html
+        script(src="./controllers/controladorAdministrar.js")
         script. 
             const menuBtn = document.querySelector('.menu-btn')
             const navlinks = document.querySelector('.nav-links')
