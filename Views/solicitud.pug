@@ -29,10 +29,7 @@ html
                         hr
                         form(id="form")
                             div(class="row mb-3")
-                                div(class="col-md-9")
-                                    label(for="nombre", class="form-label") Nombre del Solicitante
-                                    hr
-                                    input(type="text", class="form-control" id="nombre" maxlength="35")
+                                div(class="col-md-9" id="divnombre")
                                 div(class="col-md-3")
                                     label(for="folio", class="form-label") Folio no.
                                     hr
@@ -90,12 +87,7 @@ html
                                     div(class="form-check form-check-inline")
                                         input(type="checkbox", name="alcance", class="form-check-input" id="instalaciones" value="9")
                                         label(for="instalaciones", class="form-check-label") Instalaciones
-                                    
-                            div(class="row mb-3")
-                                div(cass="col-md-9")
-                                    div
-                                        label(for="espectitulo", class="form-label") Especificación y título (Maximo 745 caracteres)
-                                        textarea(type="text", class="form-control", id="espectitulo" maxlength="745")
+                            hr(id="alcance")
                             div(class="row mb-3")
                                 div(class="col-md-12")
                                     div
