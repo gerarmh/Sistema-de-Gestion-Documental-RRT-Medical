@@ -8,9 +8,8 @@ const form = document.getElementById('rmanual-form');
 fetch(`http://localhost:4600/api/soli/${id}`)
  .then(response => response.json())
  .then(data => {
-
-  data.forEach(dato => { 
-    const espectitulo = dato.epytit;
+  
+    const espectitulo = data.epytit;
 
     let contador = 1;
 
@@ -59,55 +58,39 @@ fetch(`http://localhost:4600/api/soli/${id}`)
           contador++;
           }).catch(error => console.error(error));
     })
-  })
  })
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  const file1 = document.getElementById('archivo1').files[0];
-  const file2 = document.getElementById('archivo2').files[0];
-  const file3 = document.getElementById('archivo4').files[0];
-  const file4 = document.getElementById('archivo4').files[0];
-  const file5 = document.getElementById('archivo5').files[0];
-  const file6 = document.getElementById('archivo6').files[0];
-  const file7 = document.getElementById('archivo7').files[0];
-  const file8 = document.getElementById('archivo8').files[0];
-
   const archivo = [];
 
-  if (file1 !== "") {
-    archivo.push(file1);
-  }
-  if (file2 !== "") {
-    archivo.push(file2);
-  }
-  if (file3 !== "") {
-    archivo.push(file3);
-  }
-  if (file4 !== "") {
-    archivo.push(file4);
-  }
-  if (file5 !== "") {
-    archivo.push(file5);
-  }
-  if (file6 !== "") {
-    archivo.push(file6);
-  }
-  if (file7 !== "") {
-    archivo.push(file7);
-  }
-  if (file8 !== "") {
-    archivo.push(file8);
-  }
+  const divContainer = document.getElementById('container');
 
-  fetch(`http://localhost:4600/api/soli/${id}`, {
+  const inputs = divContainer.querySelectorAll('input');
+
+  const iduser = localStorage.getItem('id');
+
+  const token = localStorage.getItem('token')
+
+  inputs.forEach(input => {
+    if (input.files.length > 0) {
+      archivo.push(input.files[0]);
+    }
+  })
+
+  const formData = new FormData();
+
+  archivo.forEach(archivo => {
+    formData.append(`archivo`, archivo);
+  })
+
+  fetch(`http://localhost:4600/api/soli/${id}/${iduser}`, {
             method: 'PUT',
             headers: {
-              'Content-Type': 'application/json',
               'x-access-token': token
             },
-            body: JSON.stringify({archivo})
+            body: formData
           })
           .then(response => {
             if (response.ok) {

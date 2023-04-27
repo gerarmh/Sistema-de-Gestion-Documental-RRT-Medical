@@ -15,6 +15,10 @@ window.addEventListener('load', () => {
      const alcance = dato.Alcance;
      const id = dato._id;
      const estado = dato.estado;
+     const aprobacionsoli = dato.aprobacions;
+     console.log(aprobacionsoli)
+     const archivo = dato.archivo;
+     console.log(archivo)
      const token = localStorage.getItem('token');
  
      const interior = document.createElement('tr');
@@ -116,7 +120,7 @@ window.addEventListener('load', () => {
        Lsolicitudes.setAttribute('data-label', 'Aprobar/Rechazar');
        interior.appendChild(Lsolicitudes);
 
-      if (estado.includes(userid)){
+      if (((aprobacionsoli === false) && (archivo.length !== 0))){
         const aprobar = document.createElement('div');
         aprobar.setAttribute('class', 'boton-modal');
         Lsolicitudes.appendChild(aprobar);
@@ -149,7 +153,7 @@ window.addEventListener('load', () => {
           .catch(error => console.error(error));
         });
       } else {
-        Lsolicitudes.textContent = "Aprobado"
+        Lsolicitudes.textContent = "En espera"
       }
 
        //estado

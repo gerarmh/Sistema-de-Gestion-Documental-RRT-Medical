@@ -3,8 +3,6 @@ window.addEventListener('load', () => {
   fetch('http://localhost:4600/api/manual')
   .then(response => response.json())
   .then(data => {
-    if (data.vigencia === "obsoleto") {
-
 
     //nombre
     const username = localStorage.getItem('username');
@@ -65,7 +63,7 @@ window.addEventListener('load', () => {
     sprocedimiento1.add(mensaje1);
 
     data.forEach(dato => {
-
+      if (dato.vigencia === "vigente") {
       const id = dato._id;
       const nombre = dato.nombre;
       const folio = dato.folio;
@@ -74,6 +72,7 @@ window.addEventListener('load', () => {
     optionelement1.textContent = nombre;
     optionelement1.value = id;
     sprocedimiento1.add(optionelement1);
+      }
     
    })
 
@@ -87,7 +86,7 @@ window.addEventListener('load', () => {
     sprocedimiento2.add(mensaje2);
 
     data.forEach(dato => {
-
+      if (dato.vigencia === "vigente") {
       const id = dato._id;
       const nombre = dato.nombre;
       const folio = dato.folio;
@@ -96,6 +95,7 @@ window.addEventListener('load', () => {
     optionelement2.textContent = nombre;
     optionelement2.value = id;
     sprocedimiento2.add(optionelement2);
+      }
     
    })
 
@@ -109,7 +109,7 @@ window.addEventListener('load', () => {
     sprocedimiento3.add(mensaje3);
 
     data.forEach(dato => {
-
+      if (dato.vigencia === "vigente") {
       const id = dato._id;
       const nombre = dato.nombre;
       const folio = dato.folio;
@@ -118,6 +118,7 @@ window.addEventListener('load', () => {
     optionelement3.textContent = nombre;
     optionelement3.value = id;
     sprocedimiento3.add(optionelement3);
+      }
     
    })
 
@@ -131,7 +132,7 @@ window.addEventListener('load', () => {
     sprocedimiento4.add(mensaje4);
 
     data.forEach(dato => {
-
+      if (dato.vigencia === "vigente") {
       const id = dato._id;
       const nombre = dato.nombre;
       const folio = dato.folio;
@@ -140,6 +141,7 @@ window.addEventListener('load', () => {
     optionelement4.textContent = nombre;
     optionelement4.value = id;
     sprocedimiento4.add(optionelement4);
+      }
     
    })
 
@@ -160,7 +162,7 @@ window.addEventListener('load', () => {
     sprocedimiento5.add(mensaje5);
 
     data.forEach(dato => {
-
+      if (dato.vigencia === "vigente") {
       const id = dato._id;
       const nombre = dato.nombre;
       const folio = dato.folio;
@@ -169,6 +171,7 @@ window.addEventListener('load', () => {
     optionelement5.textContent = nombre;
     optionelement5.value = id;
     sprocedimiento5.add(optionelement5);
+      }
     
    })
 
@@ -182,7 +185,7 @@ window.addEventListener('load', () => {
     sprocedimiento6.add(mensaje6);
 
     data.forEach(dato => {
-
+      if (dato.vigencia === "vigente") {
       const id = dato._id;
       const nombre = dato.nombre;
       const folio = dato.folio;
@@ -191,6 +194,7 @@ window.addEventListener('load', () => {
     optionelement6.textContent = nombre;
     optionelement6.value = id;
     sprocedimiento6.add(optionelement6);
+      }
     
    })
 
@@ -204,7 +208,7 @@ window.addEventListener('load', () => {
     sprocedimiento7.add(mensaje7);
 
     data.forEach(dato => {
-
+      if (dato.vigencia === "vigente") {
       const id = dato._id;
       const nombre = dato.nombre;
       const folio = dato.folio;
@@ -213,6 +217,7 @@ window.addEventListener('load', () => {
     optionelement7.textContent = nombre;
     optionelement7.value = id;
     sprocedimiento7.add(optionelement7);
+      }
     
    })
    
@@ -226,7 +231,7 @@ window.addEventListener('load', () => {
     sprocedimiento8.add(mensaje8);
 
     data.forEach(dato => {
-
+      if (dato.vigencia === "vigente") {
       const id = dato._id;
       const nombre = dato.nombre;
       const folio = dato.folio;
@@ -235,9 +240,9 @@ window.addEventListener('load', () => {
     optionelement8.textContent = nombre;
     optionelement8.value = id;
     sprocedimiento8.add(optionelement8);
+      }
     
    })
-  }
 
   })
 });

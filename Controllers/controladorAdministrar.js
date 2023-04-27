@@ -86,44 +86,35 @@ window.addEventListener('load', () => {
      lsolicitud.setAttribute('for', 'btn-modal');
      lsolicitud.textContent = 'Ver';
      refsolicitud.appendChild(lsolicitud);
-   
-//       refanexos.addEventListener('click', () => {
-//         const newWindow = window.open();
-//         const iframe = document.createElement('iframe');
-//         iframe.setAttribute('src', `${dataUrl}#toolbar=0`);
-//         iframe.style.width = '100%';
-//         iframe.style.height = '100%';
-//         newWindow.document.body.appendChild(iframe);
-//       });
-//     }
-       //estado
-       const Lestado = document.createElement('td');
-       Lestado.setAttribute('data-label', 'Estado');
-       if (estado.length === 0) {
-       Lestado.textContent = 'Aceptado';
-       } else {
-       Lestado.textContent = 'Pendiente';
-       }
-       interior.appendChild(Lestado);
-   
-       const Laplicados = document.createElement('td');
-       Laplicados.setAttribute('data-label', 'Enviar');
-       interior.appendChild(Laplicados);
-   
-       // Modal
-   
-       const modal = document.createElement('div');
-       modal.setAttribute('class', 'boton-modal');
-       Laplicados.appendChild(modal);
-   
-       const lmodal = document.createElement('label');
-       lmodal.setAttribute('for', 'btn-modal');
-       lmodal.textContent = 'Subir';
-       modal.appendChild(lmodal);
-   
-       modal.addEventListener('click', () => {
-        window.location.href = `/archivo?id=${id}`;
-       });
+  
+     //estado
+     const Lestado = document.createElement('td');
+     Lestado.setAttribute('data-label', 'Estado');
+     if (estado.length === 0) {
+     Lestado.textContent = 'Aceptado';
+     } else {
+     Lestado.textContent = 'Pendiente';
+     }
+     interior.appendChild(Lestado);
+ 
+     const Laplicados = document.createElement('td');
+     Laplicados.setAttribute('data-label', 'Enviar');
+     interior.appendChild(Laplicados);
+ 
+     // Modal
+ 
+     const modal = document.createElement('div');
+     modal.setAttribute('class', 'boton-modal');
+     Laplicados.appendChild(modal);
+ 
+     const lmodal = document.createElement('label');
+     lmodal.setAttribute('for', 'btn-modal');
+     lmodal.textContent = 'Subir';
+     modal.appendChild(lmodal);
+ 
+     modal.addEventListener('click', () => {
+      window.location.href = `/archivo?id=${id}`;
+     });
    
      //}
       }
