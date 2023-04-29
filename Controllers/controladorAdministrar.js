@@ -20,7 +20,7 @@ window.addEventListener('load', () => {
      tbody.appendChild(interior);
  
      const Lnombre = document.createElement('td');
-     Lnombre.setAttribute('data-label', 'Procedimiento');
+     Lnombre.setAttribute('data-label', 'Solicitante');
      Lnombre.textContent = nombre;
      interior.appendChild(Lnombre);
  
@@ -98,7 +98,7 @@ window.addEventListener('load', () => {
      interior.appendChild(Lestado);
  
      const Laplicados = document.createElement('td');
-     Laplicados.setAttribute('data-label', 'Enviar');
+     Laplicados.setAttribute('data-label', 'Subir Archivos');
      interior.appendChild(Laplicados);
  
      // Modal
@@ -115,12 +115,27 @@ window.addEventListener('load', () => {
      modal.addEventListener('click', () => {
       window.location.href = `/archivo?id=${id}`;
      });
-   
-     //}
+
+     const Lenviar = document.createElement('td');
+     Lenviar.setAttribute('data-label', 'Enviar Cambios');
+     interior.appendChild(Lenviar);
+ 
+     // Modal
+ 
+     const emodal = document.createElement('div');
+     emodal.setAttribute('class', 'boton-modal');
+     Lenviar.appendChild(emodal);
+ 
+     const lemodal = document.createElement('label');
+     lemodal.setAttribute('for', 'btn-modal');
+     lemodal.textContent = 'Enviar';
+     emodal.appendChild(lemodal);
+ 
+     emodal.addEventListener('click', () => {
+      window.location.href = `/enviar?id=${id}`;
+     });
       }
        })
-       
-      // Manejar los datos obtenidos de la API
     })
     .catch(error => {
       // Manejar los errores de la solicitud

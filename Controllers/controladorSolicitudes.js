@@ -16,9 +16,7 @@ window.addEventListener('load', () => {
      const id = dato._id;
      const estado = dato.estado;
      const aprobacionsoli = dato.aprobacions;
-     console.log(aprobacionsoli)
      const archivo = dato.archivo;
-     console.log(archivo)
      const token = localStorage.getItem('token');
  
      const interior = document.createElement('tr');
@@ -83,8 +81,8 @@ window.addEventListener('load', () => {
      anexos.setAttribute('data-label', 'Anexos');
      interior.appendChild(anexos);
      // Anexos
-     if (dato.archivo) {
-       const archivoBuffer = new Uint8Array(dato.archivo.data);
+     if (dato.anexo) {
+       const archivoBuffer = new Uint8Array(dato.anexo.data);
        const archivoBlob = new Blob([archivoBuffer], { type: 'application/pdf' });
        const fileReader = new FileReader();
        
@@ -130,18 +128,18 @@ window.addEventListener('load', () => {
         laprobar.textContent = 'Aprobar';
         aprobar.appendChild(laprobar);
         aprobar.addEventListener('click', () => {
-          fetch(`http://localhost:4600/api/soli/${id}`, {
+          fetch(`http://localhost:4600/api/soli/${id}/${folio}/${nombre}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               'x-access-token': token
             },
-            body: JSON.stringify({userid})
+            body: JSON.stringify({ userid })
           })
           .then(response => {
             if (response.ok) {
               Swal.fire({
-                title:'Has aceptado la solicitud!',
+                title:'Has aceptado aceptado los cambios!',
                 text:'Continuar!',
                 icon:'success',
                 timer: 2000, // tiempo en milisegundos (3 segundos)
@@ -171,7 +169,7 @@ window.addEventListener('load', () => {
        interior.appendChild(Laplicados);
    
        // Modal
-   
+       if (archivo.length !== 0) {
        const modal = document.createElement('div');
        modal.setAttribute('class', 'boton-modal');
        Laplicados.appendChild(modal);
@@ -180,18 +178,14 @@ window.addEventListener('load', () => {
        lmodal.setAttribute('for', 'btn-modal');
        lmodal.textContent = 'Ver';
        modal.appendChild(lmodal);
-   
-       //modal.addEventListener('click', () => {
-       //  const newWindow = window.open();
-       //  const iframe = document.createElement('iframe');
-       //  iframe.setAttribute('src', `${dataUrl}#toolbar=0`);
-       //  iframe.style.width = '100%';
-       //  iframe.style.height = '100%';
-       //  newWindow.document.body.appendChild(iframe);
-       //  //window.open(`${dataUrl}#toolbar=0`, '_blank');
-       //});
-   
-     //}
+       
+       modal.addEventListener('click', () => {
+        window.location.href = `/cambios?id=${id}`;
+       });
+      } else {
+        Laplicados.textContent = "Esperando Cambios";
+      }
+      
       }
        })
        

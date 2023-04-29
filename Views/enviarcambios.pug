@@ -17,20 +17,20 @@ html
         include nav.html
         header(class="admin-header")
             table(class="admin-table")
-                caption Administrar Solicitudes
+                caption Enviar Cambios
                     thread
                         tr
-                            th Solicitante 
-                            th Area 
-                            th Alcance
-                            th Folio 
-                            th Solicitud
-                            th Estado
-                            th Subir Archivos
-                            th Enviar Cambios
+                            th Procedimiento 
+                            th Folio
+                            th Documento 
                     tbody(id="contenedor") 
+                        tr(class="tr-interior")
+                            td(data-label="Procedimiento") Cargar Datos:
+                            td(data-label="Documento")
+                                div(class="boton-modal")
+                                    label(for="btn-modal") Enviar
         include footer.html
-        script(src="./controllers/controladorAdministrar.js")
+        script(src="./controllers/controladorECambios.js")
         script. 
             const menuBtn = document.querySelector('.menu-btn')
             const navlinks = document.querySelector('.nav-links')

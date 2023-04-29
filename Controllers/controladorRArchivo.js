@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id');
-const form = document.getElementById('rmanual-form');
+
 
 fetch(`http://localhost:4600/api/soli/${id}`)
  .then(response => response.json())
@@ -13,39 +13,26 @@ fetch(`http://localhost:4600/api/soli/${id}`)
 
     let contador = 1;
 
-    const enviar = document.getElementById('enviar');
-
-    const divContainer = document.createElement('div');
-    divContainer.setAttribute('id', 'container');
-    enviar.insertAdjacentElement('beforebegin', divContainer);
+    const tbody = document.getElementById('contenedor');
     
-    espectitulo.forEach(procedimientos => {
+    for( let i = espectitulo.length -1; i >= 0; i--) {
 
-      fetch(`http://localhost:4600/api/manual/${procedimientos}`)
+      fetch(`http://localhost:4600/api/manual/${espectitulo[i]}`)
         .then(response => response.json())
         .then(data => {
+          
+          const interior = document.createElement('tr');
+          interior.setAttribute('class', 'tr-interior');
+          tbody.insertAdjacentElement('afterbegin', interior);
 
-          const inputbox = document.createElement('div');
-          inputbox.setAttribute('class', 'input-box');
-          divContainer.appendChild(inputbox);
-
-          const span = document.createElement('span');
-          span.setAttribute('class', 'icon');
-          span.setAttribute('id', 'cancelar');
-          inputbox.appendChild(span);
-
-          const button = document.createElement('button');
-          button.setAttribute('class', 'btn');
-          button.setAttribute('id', 'btn-cancelar');
-          span.appendChild(button);
-
-          const divfile = document.createElement('div');
-          inputbox.appendChild(divfile);
-
-          const h3v = document.createElement('h3');
-          h3v.setAttribute('id', 'vacio');
-          h3v.textContent= data.nombre;
-          divfile.appendChild(h3v);
+          const nombre = document.createElement('td');
+          nombre.setAttribute('data-label', 'Procedimiento')
+          nombre.textContent = data.nombre;
+          interior.appendChild(nombre);
+          
+          const cambios = document.createElement('td');
+          cambios.setAttribute('data-label', 'Documento');
+          interior.appendChild(cambios);
 
           const input = document.createElement('input');
           input.setAttribute('type', 'file');
@@ -53,21 +40,24 @@ fetch(`http://localhost:4600/api/soli/${id}`)
           input.setAttribute('multiple', 'false');
           input.setAttribute('accept', 'application/pdf');
           input.setAttribute('required', 'true');
-          divfile.appendChild(input);
+          cambios.appendChild(input);
 
           contador++;
           }).catch(error => console.error(error));
-    })
+          
+    }
  })
 
-form.addEventListener('submit', (event) => {
+const boton = document.querySelector('.boton-modal');
+
+boton.addEventListener('click', (event) => {
   event.preventDefault();
 
   const archivo = [];
 
-  const divContainer = document.getElementById('container');
+  const tbody = document.getElementById('contenedor');
 
-  const inputs = divContainer.querySelectorAll('input');
+  const inputs = tbody.querySelectorAll('input');
 
   const iduser = localStorage.getItem('id');
 
@@ -95,12 +85,15 @@ form.addEventListener('submit', (event) => {
           .then(response => {
             if (response.ok) {
               Swal.fire({
-                title:'Has aceptado la solicitud!',
+                title:'Se han agregado los cambios!',
                 text:'Continuar!',
                 icon:'success',
                 timer: 2000, // tiempo en milisegundos (3 segundos)
                 showConfirmButton: false, // ocultar el botón "OK"
-              })
+              }).then(() => {
+                // redirigir a una nueva página después de que se muestra la alerta
+                window.location.href ='/administrar';
+              });
             }
           })
           .catch(error => console.error(error));

@@ -17,20 +17,14 @@ html
         include nav.html
         header(class="admin-header")
             table(class="admin-table")
-                caption Administrar Solicitudes
+                caption Ver Cambios
                     thread
                         tr
-                            th Solicitante 
-                            th Area 
-                            th Alcance
-                            th Folio 
-                            th Solicitud
-                            th Estado
-                            th Subir Archivos
-                            th Enviar Cambios
+                            th Procedimiento 
+                            th Documento 
                     tbody(id="contenedor") 
         include footer.html
-        script(src="./controllers/controladorAdministrar.js")
+        script(src="./controllers/controladorVerCambios.js")
         script. 
             const menuBtn = document.querySelector('.menu-btn')
             const navlinks = document.querySelector('.nav-links')
