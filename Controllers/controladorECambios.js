@@ -10,8 +10,6 @@ fetch(`http://localhost:4600/api/soli/${id}`)
   
     const espectitulo = data.epytit;
 
-    let contador = 1;
-
     const tbody = document.getElementById('contenedor');
     const archivo = data.archivo;
     
@@ -20,37 +18,60 @@ fetch(`http://localhost:4600/api/soli/${id}`)
       fetch(`http://localhost:4600/api/manual/${procedimientos}`)
         .then(response => response.json())
         .then(data => {
-          
-          const interior = document.createElement('tr');
-          interior.setAttribute('class', 'tr-interior');
-          tbody.insertAdjacentElement('afterbegin', interior);
 
-          const nombre = document.createElement('td');
-          nombre.setAttribute('data-label', 'Procedimiento')
-          nombre.textContent = data.nombre;
-          interior.appendChild(nombre);
-          
-          const cambios = document.createElement('td');
-          cambios.setAttribute('data-label', 'Folio');
-          interior.appendChild(cambios);
+          archivo.forEach((pdf, id) => {
 
-          const input = document.createElement('input');
-          input.setAttribute('type', 'text');
-          input.setAttribute('id', 'folio' + contador);
-          input.setAttribute('required', 'true');
-          cambios.appendChild(input);
+            if (id === indice) {
 
-          const ver = document.createElement('td');
-          ver.setAttribute('data-label', 'Documento');
-          interior.appendChild(ver);
+              const pdfData = pdf;
 
-          let pdfData = null;
+              const interior = document.createElement('tr');
+              interior.setAttribute('class', 'tr-interior');
+              tbody.insertAdjacentElement('afterbegin', interior);
+    
+              const nombre = document.createElement('td');
+              nombre.setAttribute('data-label', 'Procedimiento')
+              nombre.textContent = data.nombre;
+              interior.appendChild(nombre);
+              
+              const cambios = document.createElement('td');
+              cambios.setAttribute('data-label', 'Folio');
+              interior.appendChild(cambios);
+    
+              const input = document.createElement('input');
+              input.setAttribute('type', 'text');
+              input.setAttribute('id', 'folio' + indice);
+              input.setAttribute('required', 'true');
+              cambios.appendChild(input);
 
-          for ( let id = archivo.length - 1; id >= 0; id-- ) {
+              const inputnombre = document.createElement('input');
+              inputnombre.setAttribute('type', 'hidden');
+              inputnombre.setAttribute('id', 'nombre' + indice);
+              inputnombre.setAttribute('value', data.nombre);
+              cambios.appendChild(inputnombre);
+    
+              const inputarea = document.createElement('input');
+              inputarea.setAttribute('type', 'hidden');
+              inputarea.setAttribute('id', 'area' + indice);
+              inputarea.setAttribute('value', data.area);
+              cambios.appendChild(inputarea);
+    
+              const inputvigencia = document.createElement('input');
+              inputvigencia.setAttribute('type', 'hidden');
+              inputvigencia.setAttribute('id', 'vigencia' + indice);
+              inputvigencia.setAttribute('value', data.nombre);
+              cambios.appendChild(inputvigencia);
+              
+              const inputarchivo = document.createElement('input');
+              inputarchivo.setAttribute('type', 'hidden');
+              inputarchivo.setAttribute('id', 'archivo' + indice);
+              inputarchivo.setAttribute('value', pdfData);
+              cambios.appendChild(inputarchivo);
+    
+              const ver = document.createElement('td');
+              ver.setAttribute('data-label', 'Documento');
+              interior.appendChild(ver);
 
-            if (indice === id) {
-
-              pdfData = archivo[id];
 
               const archivoBuffer = new Uint8Array(pdfData.data);
               const archivoBlob = new Blob([archivoBuffer], { type: 'application/pdf' });
@@ -80,33 +101,20 @@ fetch(`http://localhost:4600/api/soli/${id}`)
               }
              }
 
-            }
+            })
 
-            const inputnombre = document.createElement('input');
-            inputnombre.setAttribute('type', 'hidden');
-            inputnombre.setAttribute('id', 'nombre' + contador);
-            inputnombre.setAttribute('value', data.nombre);
-            cambios.appendChild(inputnombre);
-  
-            const inputarea = document.createElement('input');
-            inputarea.setAttribute('type', 'hidden');
-            inputarea.setAttribute('id', 'area' + contador);
-            inputarea.setAttribute('value', data.area);
-            cambios.appendChild(inputarea);
-  
-            const inputvigencia = document.createElement('input');
-            inputvigencia.setAttribute('type', 'hidden');
-            inputvigencia.setAttribute('id', 'vigencia' + contador);
-            inputvigencia.setAttribute('value', data.nombre);
-            cambios.appendChild(inputvigencia);
-            
-            const inputarchivo = document.createElement('input');
-            inputarchivo.setAttribute('type', 'hidden');
-            inputarchivo.setAttribute('id', 'archivo' + contador);
-            inputarchivo.setAttribute('value', pdfData);
-            cambios.appendChild(inputarchivo);
+            const boton = document.querySelector('.boton-modal');
 
-          contador++;
+            boton.addEventListener('click', (event) => {
+              event.preventDefault();
+
+            const nombre = document.getElementById('nombre'+indice).value;
+            const folio = document.getElementById('folio'+indice).value;
+            const area = document.getElementById('area'+indice).value;
+            const vigencia = document.getElementById('vigencia'+indice).value;
+            const archivoi = document.getElementById('archivo'+indice).value;
+
+            })
 
           //Post manual
           }).catch(error => console.error(error));

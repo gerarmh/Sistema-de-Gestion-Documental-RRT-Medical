@@ -14,6 +14,8 @@ window.addEventListener('load', () => {
      const alcance = dato.Alcance;
      const id = dato._id;
      const estado = dato.estado;
+     const aprobacion = dato.aprobacions;
+     const archivo =dato.archivo;
  
      const interior = document.createElement('tr');
      interior.setAttribute('class', 'tr-interior');
@@ -102,10 +104,12 @@ window.addEventListener('load', () => {
      interior.appendChild(Laplicados);
  
      // Modal
- 
+
      const modal = document.createElement('div');
      modal.setAttribute('class', 'boton-modal');
      Laplicados.appendChild(modal);
+     
+     if (archivo.length === 0) {
  
      const lmodal = document.createElement('label');
      lmodal.setAttribute('for', 'btn-modal');
@@ -116,12 +120,25 @@ window.addEventListener('load', () => {
       window.location.href = `/archivo?id=${id}`;
      });
 
+    } else {
+      const lmodal = document.createElement('label');
+     lmodal.setAttribute('for', 'btn-modal');
+     lmodal.textContent = 'Cambiar';
+     modal.appendChild(lmodal);
+
+     modal.addEventListener('click', () => {
+      window.location.href = `/archivo?id=${id}`;
+     });
+    }
+
+     //Enviar Cambios
      const Lenviar = document.createElement('td');
      Lenviar.setAttribute('data-label', 'Enviar Cambios');
      interior.appendChild(Lenviar);
+
+     if (aprobacion === true  ) {
  
-     // Modal
- 
+
      const emodal = document.createElement('div');
      emodal.setAttribute('class', 'boton-modal');
      Lenviar.appendChild(emodal);
@@ -134,6 +151,11 @@ window.addEventListener('load', () => {
      emodal.addEventListener('click', () => {
       window.location.href = `/enviar?id=${id}`;
      });
+    } else {
+      Lenviar.textContent = "En espera";
+    }
+
+    
       }
        })
     })

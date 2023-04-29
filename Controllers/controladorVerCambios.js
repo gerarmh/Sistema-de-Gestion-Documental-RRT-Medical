@@ -19,6 +19,10 @@ fetch(`http://localhost:4600/api/soli/${id}`)
       fetch(`http://localhost:4600/api/manual/${procedimientos}`)
         .then(response => response.json())
         .then(data => {
+
+          archivo.forEach((pdf, id) => {
+
+            if (indice == id) {
           
           const interior = document.createElement('tr');
           interior.setAttribute('class', 'tr-interior');
@@ -33,11 +37,8 @@ fetch(`http://localhost:4600/api/soli/${id}`)
           cambios.setAttribute('data-label', 'Documento');
           interior.appendChild(cambios);
 
-          archivo.forEach((pdf, id) => {
-
-            if (indice === id) {
-
-              const archivoBuffer = new Uint8Array(pdf.data);
+              const pdfData = pdf.data;
+              const archivoBuffer = new Uint8Array(pdfData);
               const archivoBlob = new Blob([archivoBuffer], { type: 'application/pdf' });
               const fileReader = new FileReader();
               

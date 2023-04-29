@@ -11,13 +11,11 @@ fetch(`http://localhost:4600/api/soli/${id}`)
   
     const espectitulo = data.epytit;
 
-    let contador = 1;
-
     const tbody = document.getElementById('contenedor');
     
-    for( let i = espectitulo.length -1; i >= 0; i--) {
+    espectitulo.forEach(procedimientos=> {
 
-      fetch(`http://localhost:4600/api/manual/${espectitulo[i]}`)
+      fetch(`http://localhost:4600/api/manual/${procedimientos}`)
         .then(response => response.json())
         .then(data => {
           
@@ -36,24 +34,21 @@ fetch(`http://localhost:4600/api/soli/${id}`)
 
           const input = document.createElement('input');
           input.setAttribute('type', 'file');
-          input.setAttribute('id', 'archivo' + contador);
+          input.setAttribute('id', 'archivo');
           input.setAttribute('multiple', 'false');
           input.setAttribute('accept', 'application/pdf');
           input.setAttribute('required', 'true');
           cambios.appendChild(input);
 
-          contador++;
           }).catch(error => console.error(error));
           
-    }
+    })
  })
 
 const boton = document.querySelector('.boton-modal');
 
 boton.addEventListener('click', (event) => {
   event.preventDefault();
-
-  const archivo = [];
 
   const tbody = document.getElementById('contenedor');
 
@@ -63,16 +58,10 @@ boton.addEventListener('click', (event) => {
 
   const token = localStorage.getItem('token')
 
-  inputs.forEach(input => {
-    if (input.files.length > 0) {
-      archivo.push(input.files[0]);
-    }
-  })
-
   const formData = new FormData();
 
-  archivo.forEach(archivo => {
-    formData.append(`archivo`, archivo);
+  inputs.forEach(archivo => {
+    formData.append(`archivo`, archivo.files[0]);
   })
 
   fetch(`http://localhost:4600/api/soli/${id}/${iduser}`, {
