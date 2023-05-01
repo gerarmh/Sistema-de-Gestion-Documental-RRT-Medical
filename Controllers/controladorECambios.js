@@ -1,23 +1,23 @@
-window.addEventListener('load', () => {
-
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const id = urlParams.get('id');
-
-fetch(`http://localhost:4600/api/soli/${id}`)
- .then(response => response.json())
- .then(data => {
-  
-    const espectitulo = data.epytit;
-
-    const tbody = document.getElementById('contenedor');
+window.addEventListener('load', async () => {
+  try {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id');
+    const response = await fetch(`http://localhost:4600/api/soli/${id}`);
+    const data = await response.json();
     const archivo = data.archivo;
-    
-    espectitulo.forEach((procedimientos, indice) => {
 
-      fetch(`http://localhost:4600/api/manual/${procedimientos}`)
-        .then(response => response.json())
-        .then(data => {
+    const bsubmit = document.getElementById('boton');
+
+    const espectitulo = data.epytit.map((procedimientos) =>
+      fetch(`http://localhost:4600/api/manual/${procedimientos}`).then(
+        (response) => response.json()
+      )
+    );
+
+    const procedimientos = await Promise.all(espectitulo);
+    
+    procedimientos.forEach((data, indice) => {
 
           archivo.forEach((pdf, id) => {
 
@@ -27,7 +27,7 @@ fetch(`http://localhost:4600/api/soli/${id}`)
 
               const interior = document.createElement('tr');
               interior.setAttribute('class', 'tr-interior');
-              tbody.insertAdjacentElement('afterbegin', interior);
+              bsubmit.insertAdjacentElement('beforebegin', interior);
     
               const nombre = document.createElement('td');
               nombre.setAttribute('data-label', 'Procedimiento')
@@ -114,12 +114,17 @@ fetch(`http://localhost:4600/api/soli/${id}`)
             const vigencia = document.getElementById('vigencia'+indice).value;
             const archivoi = document.getElementById('archivo'+indice).value;
 
+            
+
             })
 
           //Post manual
-          }).catch(error => console.error(error));
+          })
           
-    })
+          
+    } catch(error) {
+       console.error(error);
+    }
  })
 
 const boton = document.querySelector('.boton-modal');
@@ -173,4 +178,3 @@ boton.addEventListener('click', (event) => {
           .catch(error => console.error(error));
   });
 
-});

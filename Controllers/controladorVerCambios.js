@@ -1,44 +1,44 @@
-window.addEventListener('load', () => {
-
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const id = urlParams.get('id');
-
-fetch(`http://localhost:4600/api/soli/${id}`)
- .then(response => response.json())
- .then(data => {
-  
-    const espectitulo = data.epytit;
-
+window.addEventListener('load', async () => {
+  try {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id');
+    const response = await fetch(`http://localhost:4600/api/soli/${id}`);
+    const data = await response.json();
     const archivo = data.archivo;
 
     const tbody = document.getElementById('contenedor');
-    
-    espectitulo.forEach((procedimientos, indice) => {
 
-      fetch(`http://localhost:4600/api/manual/${procedimientos}`)
-        .then(response => response.json())
-        .then(data => {
+    const espectitulo = data.epytit.map((procedimientos) =>
+      fetch(`http://localhost:4600/api/manual/${procedimientos}`).then(
+        (response) => response.json()
+      )
+    );
+
+    const procedimientos = await Promise.all(espectitulo);
+    
+    procedimientos.forEach((data, indice) => {
 
           archivo.forEach((pdf, id) => {
 
-            if (indice == id) {
-          
-          const interior = document.createElement('tr');
-          interior.setAttribute('class', 'tr-interior');
-          tbody.insertAdjacentElement('afterbegin', interior);
+            if (id === indice) {
 
-          const nombre = document.createElement('td');
-          nombre.setAttribute('data-label', 'Procedimiento')
-          nombre.textContent = data.nombre;
-          interior.appendChild(nombre);
-          
-          const cambios = document.createElement('td');
-          cambios.setAttribute('data-label', 'Documento');
-          interior.appendChild(cambios);
+              const pdfData = pdf;
 
-              const pdfData = pdf.data;
-              const archivoBuffer = new Uint8Array(pdfData);
+              const interior = document.createElement('tr');
+              interior.setAttribute('class', 'tr-interior');
+              tbody.appendChild(interior);
+    
+              const nombre = document.createElement('td');
+              nombre.setAttribute('data-label', 'Procedimiento')
+              nombre.textContent = data.nombre;
+              interior.appendChild(nombre);
+    
+              const ver = document.createElement('td');
+              ver.setAttribute('data-label', 'Documento');
+              interior.appendChild(ver);
+
+              const archivoBuffer = new Uint8Array(pdfData.data);
               const archivoBlob = new Blob([archivoBuffer], { type: 'application/pdf' });
               const fileReader = new FileReader();
               
@@ -48,7 +48,7 @@ fetch(`http://localhost:4600/api/soli/${id}`)
               const dataUrl = fileReader.result;
               const refcambios = document.createElement('div');
               refcambios.setAttribute('class', 'boton-modal');
-              cambios.appendChild(refcambios);
+              ver.appendChild(refcambios);
           
               const lcambios = document.createElement('label');
               lcambios.setAttribute('for', 'btn-modal');
@@ -67,10 +67,10 @@ fetch(`http://localhost:4600/api/soli/${id}`)
              }
 
             })
+          })
           
           
-
-          }).catch(error => console.error(error));
-    })
- }).catch(error => console.error(error));
-});
+        } catch(error) {
+           console.error(error);
+        }
+     })

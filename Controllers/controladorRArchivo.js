@@ -6,44 +6,44 @@ const id = urlParams.get('id');
 
 
 fetch(`http://localhost:4600/api/soli/${id}`)
- .then(response => response.json())
- .then(data => {
+  .then(response => response.json())
+  .then(async data => {
   
     const espectitulo = data.epytit;
 
-    const tbody = document.getElementById('contenedor');
+    const boton = document.getElementById('boton');
     
-    espectitulo.forEach(procedimientos=> {
+    for (const procedimientos of espectitulo) {
+      try {
 
-      fetch(`http://localhost:4600/api/manual/${procedimientos}`)
-        .then(response => response.json())
-        .then(data => {
+        const response = await fetch(`http://localhost:4600/api/manual/${procedimientos}`);
+        const data = await response.json();
           
-          const interior = document.createElement('tr');
-          interior.setAttribute('class', 'tr-interior');
-          tbody.insertAdjacentElement('afterbegin', interior);
+        const interior = document.createElement('tr');
+        interior.setAttribute('class', 'tr-interior');
+        boton.insertAdjacentElement('beforebegin', interior);
 
-          const nombre = document.createElement('td');
-          nombre.setAttribute('data-label', 'Procedimiento')
-          nombre.textContent = data.nombre;
-          interior.appendChild(nombre);
+        const nombre = document.createElement('td');
+        nombre.setAttribute('data-label', 'Procedimiento')
+        nombre.textContent = data.nombre;
+        interior.appendChild(nombre);
           
-          const cambios = document.createElement('td');
-          cambios.setAttribute('data-label', 'Documento');
-          interior.appendChild(cambios);
+        const cambios = document.createElement('td');
+        cambios.setAttribute('data-label', 'Documento');
+        interior.appendChild(cambios);
 
-          const input = document.createElement('input');
-          input.setAttribute('type', 'file');
-          input.setAttribute('id', 'archivo');
-          input.setAttribute('multiple', 'false');
-          input.setAttribute('accept', 'application/pdf');
-          input.setAttribute('required', 'true');
-          cambios.appendChild(input);
-
-          }).catch(error => console.error(error));
-          
-    })
- })
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('id', 'archivo');
+        input.setAttribute('multiple', 'false');
+        input.setAttribute('accept', 'application/pdf');
+        input.setAttribute('required', 'true');
+        cambios.appendChild(input);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
 
 const boton = document.querySelector('.boton-modal');
 
