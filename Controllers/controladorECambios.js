@@ -6,6 +6,10 @@ window.addEventListener('load', async () => {
     const response = await fetch(`http://localhost:4600/api/soli/${id}`);
     const data = await response.json();
     const archivo = data.archivo;
+    const token = localStorage.getItem('token');
+    const userid = localStorage.getItem('userid');
+    let archivosBlob =[];
+    let idprocedimiento = [];
 
     const bsubmit = document.getElementById('boton');
 
@@ -22,9 +26,7 @@ window.addEventListener('load', async () => {
           archivo.forEach((pdf, id) => {
 
             if (id === indice) {
-
               const pdfData = pdf;
-
               const interior = document.createElement('tr');
               interior.setAttribute('class', 'tr-interior');
               bsubmit.insertAdjacentElement('beforebegin', interior);
@@ -55,12 +57,6 @@ window.addEventListener('load', async () => {
               inputarea.setAttribute('id', 'area' + indice);
               inputarea.setAttribute('value', data.area);
               cambios.appendChild(inputarea);
-    
-              const inputvigencia = document.createElement('input');
-              inputvigencia.setAttribute('type', 'hidden');
-              inputvigencia.setAttribute('id', 'vigencia' + indice);
-              inputvigencia.setAttribute('value', data.nombre);
-              cambios.appendChild(inputvigencia);
               
               const inputarchivo = document.createElement('input');
               inputarchivo.setAttribute('type', 'hidden');
@@ -99,10 +95,11 @@ window.addEventListener('load', async () => {
                 newWindow.document.body.appendChild(iframe);
               });
               }
+              archivosBlob.push(archivoBlob);
+              idprocedimiento.push(data._id);
              }
 
             })
-
             const boton = document.querySelector('.boton-modal');
 
             boton.addEventListener('click', (event) => {
@@ -111,12 +108,51 @@ window.addEventListener('load', async () => {
             const nombre = document.getElementById('nombre'+indice).value;
             const folio = document.getElementById('folio'+indice).value;
             const area = document.getElementById('area'+indice).value;
-            const vigencia = document.getElementById('vigencia'+indice).value;
-            const archivoi = document.getElementById('archivo'+indice).value;
+            const vigencia = 'vigente'
 
-            
+            const formData = new FormData();
+            formData.append('nombre', nombre);
+            formData.append('folio', folio);
+            formData.append('area', area);
+            formData.append('vigencia', vigencia);
+            formData.append('archivo', archivosBlob[indice]);
 
+            fetch('http://localhost:4600/api/manual', {
+              method: 'POST',
+              headers: {
+                'x-access-token': token
+            },
+              body: formData
             })
+              .then(response => {
+                if(response.ok) {
+                console.log('salio tal como lo esperado')
+                } else {
+                console.log('no salio tal como lo esperado')
+                }
+              })
+              .catch(error => {
+                console.error(error);
+              });
+
+            //convertir a obsoleto
+            fetch(`http://localhost:4600/api/manual/${idprocedimiento[indice]}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': token
+              },
+              body: JSON.stringify({userid})
+            })
+            .then(response => {
+              if (response.ok) {
+                console.log('procedimiento modificado')
+                
+              }
+            })
+            .catch(error => console.error(error));
+          });
+
 
           //Post manual
           })
@@ -126,55 +162,3 @@ window.addEventListener('load', async () => {
        console.error(error);
     }
  })
-
-const boton = document.querySelector('.boton-modal');
-
-boton.addEventListener('click', (event) => {
-  event.preventDefault();
-
-  const archivo = [];
-
-  const tbody = document.getElementById('contenedor');
-
-  const inputs = tbody.querySelectorAll('input');
-
-  const iduser = localStorage.getItem('id');
-
-  const token = localStorage.getItem('token')
-
-  inputs.forEach(input => {
-    if (input.files.length > 0) {
-      archivo.push(input.files[0]);
-    }
-  })
-
-  const formData = new FormData();
-
-  archivo.forEach(archivo => {
-    formData.append(`archivo`, archivo);
-  })
-
-  fetch(`http://localhost:4600/api/soli/${id}/${iduser}`, {
-            method: 'PUT',
-            headers: {
-              'x-access-token': token
-            },
-            body: formData
-          })
-          .then(response => {
-            if (response.ok) {
-              Swal.fire({
-                title:'Se han agregado los cambios!',
-                text:'Continuar!',
-                icon:'success',
-                timer: 2000, // tiempo en milisegundos (3 segundos)
-                showConfirmButton: false, // ocultar el botón "OK"
-              }).then(() => {
-                // redirigir a una nueva página después de que se muestra la alerta
-                window.location.href ='/administrar';
-              });
-            }
-          })
-          .catch(error => console.error(error));
-  });
-
