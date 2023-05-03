@@ -11,6 +11,7 @@ html
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,400;0,500;0,600;1,200&family=Nunito:wght@900&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     body
         //----NAV BAR -----
         include nav.html
@@ -22,6 +23,7 @@ html
                   button(type="button" onclick="ocultarA()") Buscar
             div(class="container-manual")
         include footer.html
+        script(src="./controllers/controladorSesiones.js")
         script(src="../controllers/controladorManual.js")
         script. 
             const menuBtn = document.querySelector('.menu-btn')

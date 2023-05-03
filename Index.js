@@ -60,6 +60,9 @@ app.get('/cambios', (req, res) => {
 app.get('/enviar', (req, res) => {
   res.render('enviarcambios.pug');
 });
+app.get('/versoli', (req, res) => {
+  res.render('versolicitud.pug');
+});
 
 app.listen(port, () => console.log(`Server listen on ${port}`));
 console.log('RRT FRONT IS ON LINE')

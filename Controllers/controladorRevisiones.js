@@ -176,17 +176,9 @@ window.addEventListener('load', () => {
        lmodal.textContent = 'Ver';
        modal.appendChild(lmodal);
    
-       //modal.addEventListener('click', () => {
-       //  const newWindow = window.open();
-       //  const iframe = document.createElement('iframe');
-       //  iframe.setAttribute('src', `${dataUrl}#toolbar=0`);
-       //  iframe.style.width = '100%';
-       //  iframe.style.height = '100%';
-       //  newWindow.document.body.appendChild(iframe);
-       //  //window.open(`${dataUrl}#toolbar=0`, '_blank');
-       //});
-   
-     //}
+       modal.addEventListener('click', () => {
+        window.location.href = `/versoli?id=${id}`;
+       });
        })
        
       // Manejar los datos obtenidos de la API

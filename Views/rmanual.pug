@@ -43,12 +43,13 @@ html
                                 h3(id="subido", style="display:none;") Archivo Cargado
                         button(type="submit" class="btn") Registrar Procedimiento
         include footer.html
+        script(src="./controllers/controladorSesiones.js")
+        script(src="../Controllers/controladorRManual.js")
         script. 
             const menuBtn = document.querySelector('.menu-btn')
             const navlinks = document.querySelector('.nav-links')
             menuBtn.addEventListener('click', () => {
                 navlinks.classList.toggle('mobile-menu')
             })
-        script(src="../Controllers/controladorRManual.js")
         script(type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js")
         script(nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js")
