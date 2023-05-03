@@ -151,6 +151,18 @@ window.addEventListener('load', async () => {
               }
             })
             .catch(error => console.error(error));
+
+            Swal.fire({
+              title:'Sesion se han realizado los cambios con exito!',
+              text:'Continuar!',
+              icon:'success',
+              timer: 2000, // tiempo en milisegundos (3 segundos)
+              showConfirmButton: false, // ocultar el botón "OK"
+            }).then(() => {
+              // redirigir a una nueva página después de que se muestra la alerta
+              window.location.href ='/';
+            });
+
           });
 
 
