@@ -17,8 +17,8 @@ function loadImage(url) {
 }
 
 window.addEventListener('load', async () => {
-    const form = document.querySelector('#form');
-    form.addEventListener('submit', (e) => {
+    const boton = document.querySelector('.boton-modal');
+    boton.addEventListener('click', (e) => {
         e.preventDefault();
 
         let nombre = document.getElementById('nombre').value;
@@ -28,7 +28,7 @@ window.addEventListener('load', async () => {
         let fechaefec = document.getElementById('fechaefec').value;
         let razon = document.getElementById('razon').value;
         let alcance = document.querySelectorAll('input[name="alcance"]:checked');
-        let espectitulo = document.getElementById('espectitulo').value;
+        //let espectitulo = document.getElementById('espectitulo').value;
         let cambiode = document.getElementById('cambiode').value;
         let cambioa = document.getElementById('cambioa').value;
         let capacitacion = document.querySelector('input[name="capacitacion"]:checked').value;
@@ -45,11 +45,11 @@ window.addEventListener('load', async () => {
         let fechatermino = document.getElementById('fechatermino').value;
 
 
-        generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, alcance, espectitulo, cambiode, cambioa, capacitacion, capacitaciondesc, evaluacion, evaluaciondesc, porqueno, reqcalificacion, nocalificacion, resultado, pruebas, responsable, fechainicio, fechatermino);
+        generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, alcance, cambiode, cambioa, capacitacion, capacitaciondesc, evaluacion, evaluaciondesc, porqueno, reqcalificacion, nocalificacion, resultado, pruebas, responsable, fechainicio, fechatermino);
     });
 });
 
-async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, alcance, espectitulo, cambiode, cambioa, capacitacion, capacitaciondesc, evaluacion, evaluaciondesc, porqueno, reqcalificacion, nocalificacion, resultado, pruebas, responsable, fechainicio, fechatermino) {
+async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, alcance, cambiode, cambioa, capacitacion, capacitaciondesc, evaluacion, evaluaciondesc, porqueno, reqcalificacion, nocalificacion, resultado, pruebas, responsable, fechainicio, fechatermino) {
     const image = await loadImage("../views/gen-pdf/formulario.png")
     const pdf = new jsPDF('p', 'pt', 'letter');
     pdf.addImage(image, 'PNG', 0, 0, 600, 756);
@@ -62,7 +62,7 @@ async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, alc
     pdf.text(fechaefec, 500, 85);
     pdf.text(razon, 122, 117, {align:'left', lineHeightFactor: 1.5, maxWidth: 450});
 
-    pdf.text(espectitulo, 45, 220, {align:'justify', lineHeightFactor: 1.5, maxWidth: 510});
+    //pdf.text(espectitulo, 45, 220, {align:'justify', lineHeightFactor: 1.5, maxWidth: 510});
     pdf.text(cambiode, 42, 316, {align: 'justify', lineHeightFactor: 1.2, maxWidth: 230});
     pdf.text(cambioa, 280, 316, {align: 'justify', lineHeightFactor: 1.2, maxWidth: 275});
     pdf.text(capacitaciondesc, 162, 405, {align: 'left', lineHeightFactor: 1.2});

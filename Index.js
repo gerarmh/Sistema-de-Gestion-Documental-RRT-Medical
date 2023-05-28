@@ -1,8 +1,6 @@
 const express = require('express');
 const port = 3000;
-const dotenv = require('dotenv');
-
-const router = require("./router/router");   
+const dotenv = require('dotenv');  
 const publicpath = __dirname.replace("app", "views")
 
 require('dotenv').config()

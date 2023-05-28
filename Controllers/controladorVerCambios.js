@@ -1,4 +1,10 @@
 window.addEventListener('load', async () => {
+
+  const token = localStorage.getItem('token');
+
+  if (token) {
+
+
   try {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -73,4 +79,17 @@ window.addEventListener('load', async () => {
         } catch(error) {
            console.error(error);
         }
+
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Debe iniciar sesion para acceder a esta vista!',
+          timer: 2000, // tiempo en milisegundos (3 segundos)
+          showConfirmButton: false // ocultar el botón "OK" 
+        }).then(() => {
+          // redirigir a una nueva página después de que se muestra la alerta
+          window.location.href ='/';
+        })
+      }
      })

@@ -1,4 +1,11 @@
 window.addEventListener('load', () => {
+
+  const rol = localStorage.getItem('rol');
+  const token = localStorage.getItem('token');
+
+  if (token) {
+
+  if ((rol === "Revisor") || (rol === "SuperUser")) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
@@ -176,4 +183,44 @@ window.addEventListener('load', () => {
         fechatermino.value = data.fechater;
 
     })
+
+    const form = document.getElementById('form');
+
+    if (rol === "SuperUser") {
+      const emodal = document.createElement('div');
+     emodal.setAttribute('class', 'boton-modal');
+     form.insertAdjacentElement('beforeend', emodal);
+ 
+     const lemodal = document.createElement('label');
+     lemodal.setAttribute('for', 'btn-modal');
+     lemodal.textContent = 'Generar PDF';
+     emodal.appendChild(lemodal);
+      
+      
+    }
+
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No tiene permisos de acceder a esta interfaz!',
+      timer: 2000, // tiempo en milisegundos (3 segundos)
+      showConfirmButton: false // ocultar el botón "OK" 
+    }).then(() => {
+      // redirigir a una nueva página después de que se muestra la alerta
+      window.location.href ='/';
+    })
+  }
+} else {
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'Debe iniciar sesion para acceder a esta vista!',
+    timer: 2000, // tiempo en milisegundos (3 segundos)
+    showConfirmButton: false // ocultar el botón "OK" 
+  }).then(() => {
+    // redirigir a una nueva página después de que se muestra la alerta
+    window.location.href ='/';
+  })
+}
 })

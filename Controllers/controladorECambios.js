@@ -1,17 +1,29 @@
 window.addEventListener('load', async () => {
+
+  const rol = localStorage.getItem('rol');
+  const token = localStorage.getItem ('token');
+
+  if (token) {
+
+  if (rol === "SuperUser") {
+
   try {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
     const response = await fetch(`http://localhost:4600/api/soli/${id}`);
     const data = await response.json();
+
+    const concluido = data.concluido;
+
+    if (concluido === false) {
     const archivo = data.archivo;
     const token = localStorage.getItem('token');
     const userid = localStorage.getItem('userid');
     let archivosBlob =[];
     let idprocedimiento = [];
 
-    const bsubmit = document.getElementById('boton');
+    const tbody = document.getElementById('contenedor');
 
     const espectitulo = data.epytit.map((procedimientos) =>
       fetch(`http://localhost:4600/api/manual/${procedimientos}`).then(
@@ -29,7 +41,7 @@ window.addEventListener('load', async () => {
               const pdfData = pdf;
               const interior = document.createElement('tr');
               interior.setAttribute('class', 'tr-interior');
-              bsubmit.insertAdjacentElement('beforebegin', interior);
+              tbody.appendChild(interior);
     
               const nombre = document.createElement('td');
               nombre.setAttribute('data-label', 'Procedimiento')
@@ -100,9 +112,9 @@ window.addEventListener('load', async () => {
              }
 
             })
-            const boton = document.querySelector('.boton-modal');
+            const form = document.getElementById('form');
 
-            boton.addEventListener('click', (event) => {
+            form.addEventListener('submit', (event) => {
               event.preventDefault();
 
             const nombre = document.getElementById('nombre'+indice).value;
@@ -126,51 +138,130 @@ window.addEventListener('load', async () => {
             })
               .then(response => {
                 if(response.ok) {
-                console.log('salio tal como lo esperado')
-                } else {
-                console.log('no salio tal como lo esperado')
+                  //convertir a obsoleto
+                  fetch(`http://localhost:4600/api/manual/${idprocedimiento[indice]}`, {
+                    method: 'PUT',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'x-access-token': token
+                    },
+                    body: JSON.stringify({userid})
+                  })
+                  .then(response => {
+                    if (response.ok) {
+                      console.log('procedimiento modificado')
+
+                    }
+                  })
+                  .catch(error => console.error(error));
+
+                  fetch(`http://localhost:4600/api/soli/${id}/${folio}/${rol}/${userid}`, {
+                    method: 'PUT',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'x-access-token': token
+                    },
+                    body: JSON.stringify({ userid })
+                  })
+                  .then(response => {
+                    if (response.ok) {
+                    console.log("Salio tal como lo esperado")
+        
+                    } else {
+                      console.log("No salio tal como lo esperado")
+                    }
+                  })
+                  .catch(error => console.error(error));
+                  Swal.fire({
+                    title:'Se han subido los cambios exitosamente!',
+                    text:'Continuar!',
+                    icon:'success',
+                    timer: 2000, // tiempo en milisegundos (3 segundos)
+                    showConfirmButton: false, // ocultar el botón "OK"
+                  }).then(() => {
+                    // redirigir a una nueva página después de que se muestra la alerta
+                    //window.location.href ='/';
+                  });
+                } else if (response.status === 400) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `El folio ingresado en el procedimiento ${data.nombre} ya existe, ingrese uno diferente!`,
+                    timer: 2000, // tiempo en milisegundos (3 segundos)
+                    showConfirmButton: false // ocultar el botón "OK" 
+                  })
                 }
               })
               .catch(error => {
                 console.error(error);
               });
 
-            //convertir a obsoleto
-            fetch(`http://localhost:4600/api/manual/${idprocedimiento[indice]}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-                'x-access-token': token
-              },
-              body: JSON.stringify({userid})
-            })
-            .then(response => {
-              if (response.ok) {
-                console.log('procedimiento modificado')
-                
-              }
-            })
-            .catch(error => console.error(error));
-
-            Swal.fire({
-              title:'Sesion se han realizado los cambios con exito!',
-              text:'Continuar!',
-              icon:'success',
-              timer: 2000, // tiempo en milisegundos (3 segundos)
-              showConfirmButton: false, // ocultar el botón "OK"
-            }).then(() => {
-              // redirigir a una nueva página después de que se muestra la alerta
-              window.location.href ='/';
-            });
-
           });
 
 
           //Post manual
           })
+
+          const trbtn = document.createElement('tr');
+          trbtn.setAttribute("class", "tr-interior");
+          trbtn.setAttribute("id", "boton");
+          tbody.appendChild(trbtn);
+
+          const datalabel1 = document.createElement('td');
+          datalabel1.setAttribute("data-label", "Procedimiento");
+          datalabel1.textConten = "Cargar Datos:";
+          trbtn.appendChild(datalabel1);
+
+          const datalabel2 = document.createElement('td');
+          datalabel2.setAttribute("data-label", "Documento");
+          trbtn.appendChild(datalabel2);
+
+          const submit = document.createElement('input');
+          submit.setAttribute("type", "submit");
+          submit.setAttribute("class", "btn");
+          submit.setAttribute("value", "Enviar");
+          datalabel2.appendChild(submit);
           
+
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Esta solicitud ha concluido, por favor registre una nueva si desea realizar mas cambios!',
+            timer: 2000, // tiempo en milisegundos (3 segundos)
+            showConfirmButton: false // ocultar el botón "OK" 
+          }).then(() => {
+            // redirigir a una nueva página después de que se muestra la alerta
+            window.location.href ='/';
+          })
+        }
           
     } catch(error) {
        console.error(error);
     }
+
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No tiene permiso de acceder a esta interfaz!',
+      timer: 2000, // tiempo en milisegundos (3 segundos)
+      showConfirmButton: false // ocultar el botón "OK" 
+    }).then(() => {
+      // redirigir a una nueva página después de que se muestra la alerta
+      window.location.href ='/';
+    })
+  }
+} else {
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'Debe iniciar sesion para acceder a esta vista!',
+    timer: 2000, // tiempo en milisegundos (3 segundos)
+    showConfirmButton: false // ocultar el botón "OK" 
+  }).then(() => {
+    // redirigir a una nueva página después de que se muestra la alerta
+    window.location.href ='/';
+  })
+}
  })

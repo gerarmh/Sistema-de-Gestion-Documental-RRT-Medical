@@ -56,22 +56,28 @@ window.addEventListener('load', () => {
 
         hlogout.addEventListener('click', () => {
 
-            localStorage.removeItem('token');
-            localStorage.removeItem('username');
-            localStorage.removeItem('id');
-            localStorage.removeItem('rol');
-
             Swal.fire({
-                title:'Se ha cerrado la sesión!',
-                text:'Continuar!',
-                icon:'success',
-                timer: 2000, // tiempo en milisegundos (3 segundos)
-                showConfirmButton: false, // ocultar el botón "OK"
-              }).then(() => {
-                // redirigir a una nueva página después de que se muestra la alerta
-                window.location.href ='/';
-              })
+                title: '¿Estas seguro que quieres cerrar sesión?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+                localStorage.removeItem('id');
+                localStorage.removeItem('rol');
+                  Swal.fire({
+                    title: 'Sesión cerrada!',
+                    timer: 2000
+                }).then(() => {
+                  window.location.href ='/';
+                })
 
+                }
+              })
                 // Enviar una solicitud al servidor para invalidar el token
                 //fetch('/api/logout', {
                 //    method: 'POST',

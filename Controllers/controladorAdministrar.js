@@ -1,5 +1,10 @@
 window.addEventListener('load', () => {
 
+const rol = localStorage.getItem('rol');
+const token = localStorage.getItem('token');
+if (token) {
+if (rol === "SuperUser") {
+
  fetch('http://localhost:4600/api/soli')
  .then(response => response.json())
  .then(data => {
@@ -15,7 +20,8 @@ window.addEventListener('load', () => {
      const id = dato._id;
      const estado = dato.estado;
      const aprobacion = dato.aprobacions;
-     const archivo =dato.archivo;
+     const archivo = dato.archivo;
+     const concluido = dato.concluido;
  
      const interior = document.createElement('tr');
      interior.setAttribute('class', 'tr-interior');
@@ -88,6 +94,10 @@ window.addEventListener('load', () => {
      lsolicitud.setAttribute('for', 'btn-modal');
      lsolicitud.textContent = 'Ver';
      refsolicitud.appendChild(lsolicitud);
+
+     lsolicitud.addEventListener ('click', () => {
+      window.location.href = `/versoli?id=${id}`;
+     })
   
      //estado
      const Lestado = document.createElement('td');
@@ -109,7 +119,7 @@ window.addEventListener('load', () => {
      modal.setAttribute('class', 'boton-modal');
      Laplicados.appendChild(modal);
      
-     if (archivo.length === 0) {
+     if ((archivo.length === 0) && (concluido === false)) {
  
      const lmodal = document.createElement('label');
      lmodal.setAttribute('for', 'btn-modal');
@@ -119,7 +129,8 @@ window.addEventListener('load', () => {
      modal.addEventListener('click', () => {
       window.location.href = `/archivo?id=${id}`;
      });
-
+    }else if (concluido === true) {
+      Laplicados.textContent = "Concluido";
     } else {
       const lmodal = document.createElement('label');
      lmodal.setAttribute('for', 'btn-modal');
@@ -136,7 +147,7 @@ window.addEventListener('load', () => {
      Lenviar.setAttribute('data-label', 'Enviar Cambios');
      interior.appendChild(Lenviar);
 
-     if (aprobacion === true  ) {
+     if ((aprobacion === true) && (concluido === false)) {
  
 
      const emodal = document.createElement('div');
@@ -151,6 +162,8 @@ window.addEventListener('load', () => {
      emodal.addEventListener('click', () => {
       window.location.href = `/enviar?id=${id}`;
      });
+    } else if (concluido === true) {
+      Lenviar.textContent = "Concluido";
     } else {
       Lenviar.textContent = "En espera";
     }
@@ -163,5 +176,30 @@ window.addEventListener('load', () => {
       // Manejar los errores de la solicitud
       console.error(error);
     });
+
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No tiene permiso de acceder a esta interfaz!',
+      timer: 2000, // tiempo en milisegundos (3 segundos)
+      showConfirmButton: false // ocultar el botón "OK" 
+    }).then(() => {
+      // redirigir a una nueva página después de que se muestra la alerta
+      window.location.href ='/';
+    })
+  }
+} else {
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'Debe iniciar sesion para acceder a esta vista!',
+    timer: 2000, // tiempo en milisegundos (3 segundos)
+    showConfirmButton: false // ocultar el botón "OK" 
+  }).then(() => {
+    // redirigir a una nueva página después de que se muestra la alerta
+    window.location.href ='/';
+  })
+}
       
     })

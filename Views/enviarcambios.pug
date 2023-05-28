@@ -16,19 +16,15 @@ html
         //----NAV BAR -----
         include nav.html
         header(class="admin-header")
-            table(class="admin-table")
-                caption Enviar Cambios
-                    thread
-                        tr
-                            th Procedimiento 
-                            th Folio
-                            th Documento 
-                    tbody(id="contenedor") 
-                        tr(class="tr-interior" id="boton")
-                            td(data-label="Procedimiento") Cargar Datos:
-                            td(data-label="Documento")
-                                div(class="boton-modal")
-                                    label(for="btn-modal") Enviar
+            form(id="form")
+                table(class="admin-table")
+                    caption Enviar Cambios
+                        thread
+                            tr
+                                th Procedimiento 
+                                th Folio
+                                th Documento 
+                        tbody(id="contenedor")
         include footer.html
         script(src="./controllers/controladorSesiones.js")
         script(src="./controllers/controladorECambios.js")

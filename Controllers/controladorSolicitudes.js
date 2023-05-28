@@ -1,5 +1,9 @@
 window.addEventListener('load', () => {
 
+  const token = localStorage.getItem('token');
+
+  if (token) {
+
  fetch('http://localhost:4600/api/soli')
  .then(response => response.json())
  .then(data => {
@@ -195,5 +199,18 @@ window.addEventListener('load', () => {
       // Manejar los errores de la solicitud
       console.error(error);
     });
+
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Debe iniciar sesion para acceder a esta vista!',
+      timer: 2000, // tiempo en milisegundos (3 segundos)
+      showConfirmButton: false // ocultar el botón "OK" 
+    }).then(() => {
+      // redirigir a una nueva página después de que se muestra la alerta
+      window.location.href ='/';
+    })
+  }
       
     })

@@ -1,3 +1,12 @@
+window.addEventListener('load' , () => {
+
+  const rol = localStorage.getItem('rol');
+  const token = localStorage.getItem('token');
+
+  if (token) {
+
+  if (rol === "SuperUser") {
+
 const rmanualForm = document.getElementById('rmanual-form');
 
 rmanualForm.addEventListener('submit', (event) => {
@@ -68,6 +77,31 @@ fetch('http://localhost:4600/api/manual', {
     console.error(error);
   });
 });
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'No tiene permisos de acceder a esta interfaz!',
+      timer: 2000, // tiempo en milisegundos (3 segundos)
+      showConfirmButton: false // ocultar el botón "OK" 
+    }).then(() => {
+      // redirigir a una nueva página después de que se muestra la alerta
+      window.location.href ='/';
+    })
+  }
+} else {
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'Debe iniciar sesion para acceder a esta vista!',
+    timer: 2000, // tiempo en milisegundos (3 segundos)
+    showConfirmButton: false // ocultar el botón "OK" 
+  }).then(() => {
+    // redirigir a una nueva página después de que se muestra la alerta
+    window.location.href ='/';
+  })
+}
+})
 
 var inputFile = document.getElementById("archivo");
 var vacio = document.getElementById("vacio");

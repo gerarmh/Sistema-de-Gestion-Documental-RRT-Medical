@@ -1,3 +1,12 @@
+window.addEventListener('load' , () => {
+
+  const rol = localStorage.getItem('rol');
+  const token = localStorage.getItem('token');
+
+  if (token) {
+
+  if (rol === "SuperUser") {
+
 const loginForm = document.getElementById('registro-form');
 
 loginForm.addEventListener('submit', (event) => {
@@ -70,3 +79,29 @@ loginForm.addEventListener('submit', (event) => {
     // Manejo de errores de inicio de sesión
   });
 });
+} else {
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'No tiene permisos de acceder a esta interfaz!',
+    timer: 2000, // tiempo en milisegundos (3 segundos)
+    showConfirmButton: false // ocultar el botón "OK" 
+  }).then(() => {
+    // redirigir a una nueva página después de que se muestra la alerta
+    window.location.href ='/';
+  })
+}
+
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Debe iniciar sesión para acceder a esta vista!',
+      timer: 2000, // tiempo en milisegundos (3 segundos)
+      showConfirmButton: false // ocultar el botón "OK" 
+    }).then(() => {
+      // redirigir a una nueva página después de que se muestra la alerta
+      window.location.href ='/';
+    })
+  }
+})
