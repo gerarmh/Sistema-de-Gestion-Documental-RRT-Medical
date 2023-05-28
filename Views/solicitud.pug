@@ -36,18 +36,20 @@ html
                                     input(type="text", class="form-control" id="folio" maxlength="10")
                             div(class="mb-3")
                                 label(for="area", class="form-label") Area
-                                input(type="text", class="form-control" id="area")
+                                br
+                                select(name="area", id="area")
+                                    option(value="Asuntos Regulatorios") Asuntos Regulatorios
                             div(class="row mb-3")
                                 div(class="col-md-6")
                                     label(for="fechasoli", class="form-label") Fecha de solicitud
-                                    input(type="date", class="form-control" id="fechasoli")
+                                    input(type="date", class="form-control" id="fechasoli" required)
                                 div(class="col-md-6")
                                     label(for="fechaefec", class="form-label") Fecha de efectividad
-                                    input(type="date", class="form-control" id="fechaefec")
+                                    input(type="date", class="form-control" id="fechaefec" required)
                             div(class="mb-3")
                                 label(for="razon", class="form-label") Razon del cambio (Maximo 220 caracteres)
                                 hr
-                                textarea(class="form-control" id="razon" maxlength="220")
+                                textarea(class="form-control" id="razon" maxlength="220" required)
                             div(class="row-mb-3")
                                 div
                                     label(for="", class="form-label") Alcance de cambio:
@@ -92,12 +94,12 @@ html
                                 div(class="col-md-12")
                                     div
                                         label(for="cambiode", class="form-label") Cambio de (Maximo 340 caracteres):
-                                        textarea(type="text", class="form-control" id="cambiode" maxlength="340")
+                                        textarea(type="text", class="form-control" id="cambiode" maxlength="340" required)
                             div(class="row mb-3")
                                 div(class="col-md-12")
                                     div
                                         label(for="cambioa", class="form-label") Cambio a (Maximo 400 caracteres):
-                                        textarea(type="text", class="form-control" id="cambioa" maxlength="398")
+                                        textarea(type="text", class="form-control" id="cambioa" maxlength="398" required)
                             div(class="row mb-3")
                                 div(class="col-md-12")
                                     div
@@ -143,7 +145,7 @@ html
                                             label(for="evaluacionno", class="form-check-label") No
                             div(class="row mb-3")
                                 label(for="porqueno", class="form-label") ¿Por qué no? a/b (100 caracteres)
-                                textarea(type="text", class="form-control" id="porqueno" maxlength="100")
+                                textarea(type="text", class="form-control" id="porqueno" maxlength="100" required)
                             div(class="row mb-3")
                                 div(class="col-md-6")
                                     div
@@ -158,33 +160,33 @@ html
                                 div(class="col-md-6")
                                     div
                                         label(for="nocalificacion", class="form-label") No. Calificación/Validación:
-                                        input(type="text", class="form-control", id="nocalificacion" maxlength="10")
+                                        input(type="text", class="form-control", id="nocalificacion" maxlength="10" required)
                             div(class="row-mb-3")
                                 div(cass="col-md-9")
                                     div
                                         label(for="resultado", class="form-label") Actividades por realizar/Resultados esperados (Maximo 240 caracteres):
-                                        textarea(type="text", class="form-control", id="resultado" maxlength="240")
+                                        textarea(type="text", class="form-control", id="resultado" maxlength="240" required)
                             br
                             div(class="row-mb-3")
                                 div(cass="col-md-9")
                                     div
                                         label(for="pruebas", class="form-label") Pruebas requeridas (referencia al protocolo de las pruebas) 66 caracteres:
                                         hr
-                                        textarea(type="text", class="form-control", id="pruebas" maxlength="66")
+                                        textarea(type="text", class="form-control", id="pruebas" maxlength="66" required)
                             br
                             
                             div(class="row mb-3")
                                 div(class="col-mb-9")
                                     label(for="responsable", class="form-label") Responsable de realizar la modificación
                                     hr
-                                    input(type="text", class="form-control" id="responsable" maxlength="55")
+                                    input(type="text", class="form-control" id="responsable" maxlength="55" required)
                             div(class="row mb-3")
                                 div(class="col-md-6")
                                     label(for="fechainicio", class="form-label") Fecha de inicio
-                                    input(type="date", class="form-control" id="fechainicio")
+                                    input(type="date", class="form-control" id="fechainicio" required)
                                 div(class="col-md-6")
                                     label(for="fechatermino", class="form-label") Fecha de termino
-                                    input(type="date", class="form-control" id="fechatermino")
+                                    input(type="date", class="form-control" id="fechatermino" required)
                             button(type="submit",class="btn btn-primary pb-4", style="background-color: #3B3332; border: none") Enviar
                             br
                             h3(style="text-align: right; font-size:15px;") QA 03.14
