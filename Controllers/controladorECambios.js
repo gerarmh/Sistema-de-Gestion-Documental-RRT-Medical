@@ -180,7 +180,7 @@ window.addEventListener('load', async () => {
                     showConfirmButton: false, // ocultar el botón "OK"
                   }).then(() => {
                     // redirigir a una nueva página después de que se muestra la alerta
-                    //window.location.href ='/';
+                    window.location.href ='/';
                   });
                 } else if (response.status === 400) {
                   Swal.fire({
