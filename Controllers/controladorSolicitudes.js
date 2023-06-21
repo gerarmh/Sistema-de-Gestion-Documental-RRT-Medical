@@ -21,6 +21,7 @@ window.addEventListener('load', () => {
      const estado = dato.estado;
      const aprobacionsoli = dato.aprobacions;
      const archivo = dato.archivo;
+     const espectitulo = dato.epytit;
      const token = localStorage.getItem('token');
  
      const interior = document.createElement('tr');
@@ -28,7 +29,7 @@ window.addEventListener('load', () => {
      tbody.appendChild(interior);
  
      const Lnombre = document.createElement('td');
-     Lnombre.setAttribute('data-label', 'Procedimiento');
+     Lnombre.setAttribute('data-label', 'Solicitante');
      Lnombre.textContent = nombre;
      interior.appendChild(Lnombre);
  
@@ -36,6 +37,26 @@ window.addEventListener('load', () => {
      Larea.setAttribute('data-label', 'Area');
      Larea.textContent = area;
      interior.appendChild(Larea)
+
+     const procedimientos = document.createElement('td');
+     procedimientos.setAttribute('data-label', 'Procedimientos'); 
+     procedimientos.setAttribute('class', 'alcance');
+     interior.appendChild(procedimientos)
+
+     const listaproc = document.createElement('ul');
+     procedimientos.appendChild(listaproc);
+
+     
+     espectitulo.forEach(procedimiento => {
+      fetch(`http://localhost:4600/api/manual/${procedimiento}`)
+    .then(response => response.json())
+    .then(data => {
+      const nombreproc = data.nombre;
+      const proclist = document.createElement('li');
+      proclist.textContent = `- ${nombreproc}`;
+      listaproc.appendChild(proclist);
+     })
+    })
  
      const LAlcance = document.createElement('td');
      LAlcance.setAttribute('data-label', 'Alcance');

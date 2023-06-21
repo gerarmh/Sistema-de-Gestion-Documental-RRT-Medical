@@ -2,6 +2,7 @@ window.addEventListener('load', () => {
 
 const rol = localStorage.getItem('rol');
 const token = localStorage.getItem('token');
+const username = localStorage.getItem('username');
 if (token) {
 if ((rol === "Revisor") || (rol === "SuperUser")) {
 
@@ -20,13 +21,15 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
      const estado = dato.estado;
      const token = localStorage.getItem('token');
      const userid = localStorage.getItem('id');
+     const espectitulo = dato.epytit;
+     const revisados = dato.revisados;
  
      const interior = document.createElement('tr');
      interior.setAttribute('class', 'tr-interior');
      tbody.appendChild(interior);
  
      const Lnombre = document.createElement('td');
-     Lnombre.setAttribute('data-label', 'Procedimiento');
+     Lnombre.setAttribute('data-label', 'Solicitante');
      Lnombre.textContent = nombre;
      interior.appendChild(Lnombre);
  
@@ -34,6 +37,27 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
      Larea.setAttribute('data-label', 'Area');
      Larea.textContent = area;
      interior.appendChild(Larea)
+
+     const procedimientos = document.createElement('td');
+     procedimientos.setAttribute('data-label', 'Procedimientos'); 
+     procedimientos.setAttribute('class', 'alcance');
+     interior.appendChild(procedimientos)
+
+     const listaproc = document.createElement('ul');
+     procedimientos.appendChild(listaproc);
+
+     
+     espectitulo.forEach(procedimiento => {
+      fetch(`http://localhost:4600/api/manual/${procedimiento}`)
+    .then(response => response.json())
+    .then(data => {
+      const nombreproc = data.nombre;
+      const proclist = document.createElement('li');
+      proclist.textContent = `- ${nombreproc}`;
+      listaproc.appendChild(proclist);
+     })
+    })
+
  
      const LAlcance = document.createElement('td');
      LAlcance.setAttribute('data-label', 'Alcance');
@@ -136,7 +160,7 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
               'Content-Type': 'application/json',
               'x-access-token': token
             },
-            body: JSON.stringify({userid})
+            body: JSON.stringify({userid, username})
           })
           .then(response => {
             if (response.ok) {
@@ -152,9 +176,45 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
           })
           .catch(error => console.error(error));
         });
+
+        const br = document.createElement('br');
+        Lsolicitudes.appendChild(br)
+
+        const rechazar = document.createElement('div');
+        rechazar.setAttribute('class', 'boton-modal');
+        Lsolicitudes.appendChild(rechazar);
+
+        const lrechazar = document.createElement('label');
+        lrechazar.setAttribute('for', 'btn-modal');
+        lrechazar.textContent = 'Rechazar';
+        rechazar.appendChild(lrechazar);
+
       } else {
         Lsolicitudes.textContent = "Aprobado"
       }
+
+      // autorizaron
+      const autorizaron = document.createElement('td');
+      autorizaron.setAttribute('data-label', 'Autorizaron');
+      autorizaron.setAttribute('class', 'alcance');
+      interior.appendChild(autorizaron);
+
+      if (revisados.length === 0) {
+
+        autorizaron.textContent = "Ningun revisor ha aprobado";
+
+      } else {
+
+      const listautorizaron= document.createElement('ul');
+     autorizaron.appendChild(listautorizaron);
+
+      revisados.forEach(autorizados => {
+        const autolist = document.createElement('li');
+        autolist.textContent = `- ${autorizados}`;
+        listautorizaron.appendChild(autolist);
+      })
+
+    }
 
        //estado
        const Lestado = document.createElement('td');
