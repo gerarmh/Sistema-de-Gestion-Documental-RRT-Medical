@@ -12,6 +12,12 @@ window.addEventListener('load', async () => {
     const response = await fetch(`http://localhost:4600/api/soli/${id}`);
     const data = await response.json();
     const archivo = data.archivo;
+    const area = data.area;
+    const folio = data.folio;
+    const rol = localStorage.getItem('rol');
+    const username = localStorage.getItem('username');
+    const userid = localStorage.getItem('id');
+    const comentario = data.comentarios;
 
     const tbody = document.getElementById('contenedor');
 
@@ -74,7 +80,72 @@ window.addEventListener('load', async () => {
 
             })
           })
+
+          const interior = document.createElement('tr');
+          interior.setAttribute('class', 'tr-interior');
+          tbody.appendChild(interior);
           
+          const caja = document.createElement('td');
+          caja.setAttribute('data-label', 'Procedimiento')
+          caja.textContent = 'Comentarios';
+          interior.appendChild(caja);
+          
+          const br = document.createElement('br');
+          caja.appendChild(br);
+
+          const text = document.createElement('textarea');
+          text.setAttribute('required', 'true');
+          text.setAttribute('id', 'comentario');
+          caja.appendChild(text);
+
+          const tdsubmit = document.createElement('td');
+          tdsubmit.setAttribute('data-label', 'Documento');
+          interior.appendChild(tdsubmit);
+
+          const submit = document.createElement('input');
+          submit.setAttribute('type', 'submit');
+          submit.setAttribute("class", "btn");
+          submit.setAttribute("value", "Enviar");
+          tdsubmit.appendChild(submit);
+
+          const formulario = document.getElementById('comentarios');
+
+          formulario.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const textarea = document.getElementById('comentario').value;
+
+            fetch(`http://localhost:4600/api/soli/${id}/${folio}/${rol}/${username}/${userid}/${area}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-access-token': token
+            },
+            body: JSON.stringify({textarea})
+          })
+          .then(response => {
+            if (response.ok) {
+              Swal.fire({
+                title:'Se han enviado los comentarios con exito!',
+                text:'Continuar!',
+                icon:'success',
+                timer: 2000, // tiempo en milisegundos (3 segundos)
+                showConfirmButton: false, // ocultar el botón "OK"
+              }).then(() => {
+                window.location.href = '/solicitudes';
+              })
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: `Ha ocurrido un error al realizar la acción! ${response.status}`,
+                timer: 2000, // tiempo en milisegundos (3 segundos)
+                showConfirmButton: false // ocultar el botón "OK" 
+              })
+            }
+          })
+          .catch(error => console.error(error));
+        });
           
         } catch(error) {
            console.error(error);

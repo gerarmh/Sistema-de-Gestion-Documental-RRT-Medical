@@ -16,13 +16,13 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
      const nombre = dato.nombredelsolicitante;
      const folio = dato.folio;
      const area = dato.area;
-     const alcance = dato.Alcance;
      const id = dato._id;
      const estado = dato.estado;
      const token = localStorage.getItem('token');
      const userid = localStorage.getItem('id');
      const espectitulo = dato.epytit;
      const revisados = dato.revisados;
+     const rechazaron = dato.rechazaron;
  
      const interior = document.createElement('tr');
      interior.setAttribute('class', 'tr-interior');
@@ -59,45 +59,45 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
     })
 
  
-     const LAlcance = document.createElement('td');
-     LAlcance.setAttribute('data-label', 'Alcance');
-     LAlcance.setAttribute('class', 'alcance');
-     interior.appendChild(LAlcance);
-     const listAlcance = document.createElement('ul');
-     LAlcance.appendChild(listAlcance);
-     alcance.forEach(item => {
-       const itemlist = document.createElement('li');
-       switch (item) {
-         case '1':
-           itemlist.textContent = "- Proced. y/o Formato";
-           break;
-         case '2':
-           itemlist.textContent = "- Producto";
-           break;
-         case '3':
-           itemlist.textContent = "- Materia prima/Fabricante";
-           break;
-         case '4':
-           itemlist.textContent = "- Especificaciones";
-           break;
-         case '5':
-           itemlist.textContent = "- Proceso";
-           break;
-         case '6':
-           itemlist.textContent = "- Metodos de análisis";
-           break;
-         case '7':
-           itemlist.textContent = "- Equipos";
-           break;
-         case '8':
-           itemlist.textContent = "- Sistemas de cómputo";
-           break;
-         case '9':
-           itemlist.textContent = "- Instalaciones";
-           break;
-       }
-       listAlcance.appendChild(itemlist);
-     })
+    // const LAlcance = document.createElement('td');
+    // LAlcance.setAttribute('data-label', 'Alcance');
+    // LAlcance.setAttribute('class', 'alcance');
+    // interior.appendChild(LAlcance);
+    // const listAlcance = document.createElement('ul');
+    // LAlcance.appendChild(listAlcance);
+    // alcance.forEach(item => {
+    //   const itemlist = document.createElement('li');
+    //   switch (item) {
+    //     case '1':
+    //       itemlist.textContent = "- Proced. y/o Formato";
+    //       break;
+    //     case '2':
+    //       itemlist.textContent = "- Producto";
+    //       break;
+    //     case '3':
+    //       itemlist.textContent = "- Materia prima/Fabricante";
+    //       break;
+    //     case '4':
+    //       itemlist.textContent = "- Especificaciones";
+    //       break;
+    //     case '5':
+    //       itemlist.textContent = "- Proceso";
+    //       break;
+    //     case '6':
+    //       itemlist.textContent = "- Metodos de análisis";
+    //       break;
+    //     case '7':
+    //       itemlist.textContent = "- Equipos";
+    //       break;
+    //     case '8':
+    //       itemlist.textContent = "- Sistemas de cómputo";
+    //       break;
+    //     case '9':
+    //       itemlist.textContent = "- Instalaciones";
+    //       break;
+    //   }
+    //   listAlcance.appendChild(itemlist);
+    // })
  
      const Lfolio = document.createElement('td');
      Lfolio.setAttribute('data-label', 'Folio');
@@ -145,6 +145,7 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
        interior.appendChild(Lsolicitudes);
 
       if (estado.includes(userid)){
+        if (!rechazaron.includes(username)) {
         const aprobar = document.createElement('div');
         aprobar.setAttribute('class', 'boton-modal');
         Lsolicitudes.appendChild(aprobar);
@@ -188,9 +189,34 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
         lrechazar.setAttribute('for', 'btn-modal');
         lrechazar.textContent = 'Rechazar';
         rechazar.appendChild(lrechazar);
-
+        rechazar.addEventListener('click', () => {
+        fetch(`http://localhost:4600/api/soli/${id}/${folio}/${rol}/${username}/${userid}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-access-token': token
+            },
+            body: JSON.stringify({userid, username})
+          })
+          .then(response => {
+            if (response.ok) {
+              Swal.fire({
+                title:'Has rechazado la solicitud!',
+                text:'Continuar!',
+                icon:'success',
+                timer: 2000, // tiempo en milisegundos (3 segundos)
+                showConfirmButton: false, // ocultar el botón "OK"
+              })
+              Lsolicitudes.textContent = "Rechazado";
+            }
+          })
+          .catch(error => console.error(error));
+        });
       } else {
-        Lsolicitudes.textContent = "Aprobado"
+        Lsolicitudes.textContent = "Rechazado";
+      }
+      } else {
+        Lsolicitudes.textContent = "Aprobado";
       }
 
       // autorizaron
@@ -201,7 +227,7 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
 
       if (revisados.length === 0) {
 
-        autorizaron.textContent = "Ningun revisor ha aprobado";
+        autorizaron.textContent = "No revisado";
 
       } else {
 
@@ -216,13 +242,36 @@ if ((rol === "Revisor") || (rol === "SuperUser")) {
 
     }
 
+    const rechazado = document.createElement('td');
+    rechazado.setAttribute('data-label', 'Rechazaron');
+    rechazado.setAttribute('class', 'alcance');
+    interior.appendChild(rechazado);
+
+      if (rechazaron.length === 0) {
+
+        rechazado.textContent = "No revisado";
+      } else {
+        
+        const listrechazaron = document.createElement('ul');
+        rechazado.appendChild(listrechazaron);
+
+        rechazaron.forEach(autorizados => {
+        const rechlist = document.createElement('li');
+        rechlist.textContent = `- ${autorizados}`;
+        listrechazaron.appendChild(rechlist);
+      })
+
+      }
+
        //estado
        const Lestado = document.createElement('td');
        Lestado.setAttribute('data-label', 'Estado');
        if (estado.length === 0) {
        Lestado.textContent = 'Aceptado';
+       } else if (rechazaron.length > 0) {
+       Lestado.textContent = 'Rechazado';
        } else {
-       Lestado.textContent = 'Pendiente';
+        Lestado.textContent = 'Pendiente';
        }
        interior.appendChild(Lestado);
    

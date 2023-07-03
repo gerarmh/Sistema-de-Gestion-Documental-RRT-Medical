@@ -17,6 +17,7 @@ fetch(`http://localhost:4600/api/soli/${id}`)
   .then(async data => {
   
     const espectitulo = data.epytit;
+    const comentarios = data.comentarios;
 
     const boton = document.getElementById('boton');
     
@@ -50,6 +51,27 @@ fetch(`http://localhost:4600/api/soli/${id}`)
         console.error(error);
       }
     }
+
+    if (comentarios !== undefined && comentarios !== null && comentarios !== '') {
+
+    const interiorcom = document.createElement('tr');
+    interiorcom.setAttribute('class', 'tr-interior');
+    boton.insertAdjacentElement('afterend', interiorcom);
+
+    const nombrecom = document.createElement('td');
+    nombrecom.setAttribute('data-label', 'Procedimiento');
+    nombrecom.textContent = 'Comentarios:';
+    interiorcom.appendChild(nombrecom);
+
+    const cambioscom = document.createElement('td');
+    cambioscom.setAttribute('data-label', 'Documento');
+    cambioscom.setAttribute('class', 'alcance');
+    cambioscom.textContent = comentarios;
+    interiorcom.appendChild(cambioscom);
+
+
+    }
+
   });
 
 const boton = document.querySelector('.boton-modal');

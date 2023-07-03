@@ -22,7 +22,10 @@ window.addEventListener('load', () => {
      const aprobacionsoli = dato.aprobacions;
      const archivo = dato.archivo;
      const espectitulo = dato.epytit;
+     const rechazaron = dato.rechazaron;
      const token = localStorage.getItem('token');
+     const comentario = dato.comentarios;
+     console.log(comentario)
  
      const interior = document.createElement('tr');
      interior.setAttribute('class', 'tr-interior');
@@ -143,7 +146,7 @@ window.addEventListener('load', () => {
        Lsolicitudes.setAttribute('data-label', 'Aprobar/Rechazar');
        interior.appendChild(Lsolicitudes);
 
-      if (((aprobacionsoli === false) && (archivo.length !== 0))){
+      if (((aprobacionsoli === false) && (archivo.length !== 0) && (comentario === undefined) || (comentario === ''))){
         const aprobar = document.createElement('div');
         aprobar.setAttribute('class', 'boton-modal');
         Lsolicitudes.appendChild(aprobar);
@@ -184,8 +187,10 @@ window.addEventListener('load', () => {
        Lestado.setAttribute('data-label', 'Estado');
        if (estado.length === 0) {
        Lestado.textContent = 'Aceptado';
+       } else if (rechazaron.length > 0) {
+       Lestado.textContent = 'Rechazado';
        } else {
-       Lestado.textContent = 'Pendiente';
+        Lestado.textContent = 'Pendiente';
        }
        interior.appendChild(Lestado);
    
@@ -194,7 +199,7 @@ window.addEventListener('load', () => {
        interior.appendChild(Laplicados);
    
        // Modal
-       if (archivo.length !== 0) {
+       if ((archivo.length !== 0) && (comentario === undefined) || (comentario === '')) {
        const modal = document.createElement('div');
        modal.setAttribute('class', 'boton-modal');
        Laplicados.appendChild(modal);
