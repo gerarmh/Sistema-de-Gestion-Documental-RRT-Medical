@@ -23,14 +23,6 @@ window.addEventListener('load', () => {
         hmanual.textContent = "Manual";
         manual.appendChild(hmanual);
 
-        const solicitudes = document.createElement('li');
-        navlinks.appendChild(solicitudes);
-
-        const hsolicitudes = document.createElement('a');
-        hsolicitudes.setAttribute('href', '/solicitudes');
-        hsolicitudes.textContent = "Solicitudes";
-        solicitudes.appendChild(hsolicitudes);
-
         const sesion = document.createElement('li');
         navlinks.appendChild(sesion);
 
@@ -100,13 +92,6 @@ window.addEventListener('load', () => {
 
         });
 
-        const solicitud = document.createElement('li');
-        submenu.appendChild(solicitud);
-
-        const hsolicitud = document.createElement('a');
-        hsolicitud.setAttribute('href', '/solicitud');
-        hsolicitud.textContent = "Solicitud";
-        solicitud.appendChild(hsolicitud);
 
     if (rol === "Revisor") {
         const revisiones = document.createElement('li');
@@ -116,6 +101,22 @@ window.addEventListener('load', () => {
         hrevisiones.setAttribute('href', '/revisiones')
         hrevisiones.textContent = "Revisiones";
         revisiones.appendChild(hrevisiones);
+
+        const solicitudes = document.createElement('li');
+        revisiones.insertAdjacentElement('afterend', solicitudes);
+
+        const hsolicitudes = document.createElement('a');
+        hsolicitudes.setAttribute('href', '/solicitudes');
+        hsolicitudes.textContent = "Solicitudes";
+        solicitudes.appendChild(hsolicitudes);
+
+        const solicitud = document.createElement('li');
+        submenu.appendChild(solicitud);
+
+        const hsolicitud = document.createElement('a');
+        hsolicitud.setAttribute('href', '/solicitud');
+        hsolicitud.textContent = "Solicitud";
+        solicitud.appendChild(hsolicitud);
     } else if (rol === "SuperUser") {
         const revisiones = document.createElement('li');
         manual.insertAdjacentElement('afterend', revisiones);
@@ -158,7 +159,39 @@ window.addEventListener('load', () => {
         hruser.setAttribute('href', '/registrar');
         hruser.textContent = "Registrar Usuario";
         liruser.appendChild(hruser);
+
+        const solicitudes = document.createElement('li');
+        revisiones.insertAdjacentElement('afterend', solicitudes);
+
+        const hsolicitudes = document.createElement('a');
+        hsolicitudes.setAttribute('href', '/solicitudes');
+        hsolicitudes.textContent = "Solicitudes";
+        solicitudes.appendChild(hsolicitudes);
+
+        const solicitud = document.createElement('li');
+        submenu.appendChild(solicitud);
+
+        const hsolicitud = document.createElement('a');
+        hsolicitud.setAttribute('href', '/solicitud');
+        hsolicitud.textContent = "Solicitud";
+        solicitud.appendChild(hsolicitud);
         
+    } else if (rol === "CommonUser") {
+        const solicitudes = document.createElement('li');
+        manual.insertAdjacentElement('afterend', solicitudes);
+
+        const hsolicitudes = document.createElement('a');
+        hsolicitudes.setAttribute('href', '/solicitudes');
+        hsolicitudes.textContent = "Solicitudes";
+        solicitudes.appendChild(hsolicitudes);
+
+        const solicitud = document.createElement('li');
+        submenu.appendChild(solicitud);
+
+        const hsolicitud = document.createElement('a');
+        hsolicitud.setAttribute('href', '/solicitud');
+        hsolicitud.textContent = "Solicitud";
+        solicitud.appendChild(hsolicitud);
     }
 } else {
     const navlinks = document.querySelector('.nav-links');

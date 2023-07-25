@@ -2,6 +2,8 @@ window.addEventListener('load', () => {
 
   const rol = localStorage.getItem('rol');
   const token = localStorage.getItem('token');
+  const username = localStorage.getItem('username');
+  const userid = localStorage.getItem('id');
 
   if (token) {
 
@@ -19,7 +21,6 @@ window.addEventListener('load', () => {
         nombre.value = data.nombredelsolicitante;
         
         const folio = document.getElementById('folio');
-        folio.setAttribute('disabled', 'disabled');
         folio.value = data.folio;
 
         const area = document.getElementById('area');
@@ -38,62 +39,80 @@ window.addEventListener('load', () => {
         razon.setAttribute('disabled', 'disabled');
         razon.value = data.razoncambio;
 
-        const procedformato = document.getElementById('procedformato');
-        procedformato.setAttribute('disabled', 'disabled');
+        const procesos = document.getElementById('procesos');
+        procesos.setAttribute('disabled', 'disabled');
 
-        const producto = document.getElementById('producto');
-        producto.setAttribute('disabled', 'disabled');
+        const proveedores = document.getElementById('proveedores');
+        proveedores.setAttribute('disabled', 'disabled');
 
-        const matprima = document.getElementById('matprima');
-        matprima.setAttribute('disabled', 'disabled');
+        const siscriticos = document.getElementById('siscriticos');
+        siscriticos.setAttribute('disabled', 'disabled');
 
-        const especificaciones = document.getElementById('especificaciones');
-        especificaciones.setAttribute('disabled', 'disabled');
+        const siscomputacionales = document.getElementById('siscomputacionales');
+        siscomputacionales.setAttribute('disabled', 'disabled');
 
-        const proceso = document.getElementById('proceso');
-        proceso.setAttribute('disabled', 'disabled');
+        const areas = document.getElementById('areas');
+        areas.setAttribute('disabled', 'disabled');
 
-        const metanalisis = document.getElementById('metanalisis');
-        metanalisis.setAttribute('disabled', 'disabled')
+        const servicios = document.getElementById('servicios');
+        servicios.setAttribute('disabled', 'disabled')
 
         const equipos = document.getElementById('equipos');
         equipos.setAttribute('disabled', 'disabled');
 
-        const siscomputo = document.getElementById('siscomputo');
-        siscomputo.setAttribute('disabled', 'disabled');
+        const metanaliticos = document.getElementById('metanaliticos');
+        metanaliticos.setAttribute('disabled', 'disabled');
 
-        const instalaciones = document.getElementById('instalaciones');
-        instalaciones.setAttribute('disabled', 'disabled');
+        const especificaciones = document.getElementById('especificaciones');
+        especificaciones.setAttribute('disabled', 'disabled');
+
+        const documentacion = document.getElementById('documentacion');
+        documentacion.setAttribute('disabled', 'disabled');
+
+        const dispregulatorias = document.getElementById('dispregulatorias');
+        dispregulatorias.setAttribute('disabled', 'disabled');
+
+        const calidproduct = document.getElementById('calidproduct');
+        calidproduct.setAttribute('disabled', 'disabled');
 
         const alcance = data.Alcance;
         alcance.forEach(item => {
         switch (item) {
             case '1':
-              procedformato.setAttribute('checked', 'checked');
+              procesos.setAttribute('checked', 'checked');
               break;
             case '2':
-              producto.setAttribute('checked', 'checked'); 
+              proveedores.setAttribute('checked', 'checked'); 
               break;
             case '3':
-              matprima.setAttribute('checked', 'checked');
+              siscriticos.setAttribute('checked', 'checked');
               break;
             case '4':
-              especificaciones.setAttribute('checked', 'checked');
+              siscomputacionales.setAttribute('checked', 'checked');
               break;
             case '5':
-              proceso.setAttribute('checked', 'checked');
+              areas.setAttribute('checked', 'checked');
               break;
             case '6':
-              metanalisis.setAttribute('checked', 'checked');
+              servicios.setAttribute('checked', 'checked');
               break;
             case '7':
               equipos.setAttribute('checked', 'checked');
               break;
             case '8':
-              siscomputo.setAttribute('ceckered', 'checked');
+              metanaliticos.setAttribute('checked', 'checked');
               break;
             case '9':
-              instalaciones.setAttribute('checked', 'checked');
+              especificaciones.setAttribute('checked', 'checked');
+              break;
+            case '10':
+              documentacion.setAttribute('checked', 'checked');
+              break;
+            case '11':
+              dispregulatorias.setAttribute('checked', 'checked');
+              break;
+            case '12':
+              calidproduct.setAttribute('checked', 'checked');
               break;
           }
 
@@ -187,17 +206,75 @@ window.addEventListener('load', () => {
     const form = document.getElementById('form');
 
     if (rol === "SuperUser") {
-      const emodal = document.createElement('div');
+     const divcontain = document.createElement('div');
+     divcontain.setAttribute('class', "row mb-3");
+     form.insertAdjacentElement('beforeend', divcontain);
+
+     const divinterior1 = document.createElement('div');
+     divinterior1.setAttribute('class', 'col-mb-6')
+     divcontain.appendChild(divinterior1);
+      
+     const emodal = document.createElement('div');
      emodal.setAttribute('class', 'boton-modal');
-     form.insertAdjacentElement('beforeend', emodal);
+     divinterior1.appendChild(emodal);
  
      const lemodal = document.createElement('label');
      lemodal.setAttribute('for', 'btn-modal');
      lemodal.textContent = 'Generar PDF';
      emodal.appendChild(lemodal);
-      
+
+     const divinterior2 = document.createElement('div');
+     divinterior2.setAttribute('class', 'col-mb-6')
+     divcontain.appendChild(divinterior2);
+
+     const update = document.createElement('input') ;
+     update.setAttribute('type', 'submit');
+     update.setAttribute('value', 'Actualizar');
+     update.setAttribute('class', 'boton');
+     divinterior2.appendChild(update);
       
     }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const folio = document.getElementById('folio').value;
+      const area = document.getElementById('area').value;
+
+      fetch(`http://localhost:4600/api/soli/${id}/${folio}/${rol}/${username}/${userid}/${area}/1`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token
+        },
+        body: JSON.stringify({ folio })
+      })
+      .then(response => {
+        if (response.ok) {
+          // Inicio de sesión exitoso, redirecciona al usuario
+          Swal.fire({
+            title:'Folio Actualizado!',
+            text:'Continuar!',
+            icon:'success',
+            timer: 2000,
+            showConfirmButton: false, // ocultar el botón "OK"
+          }).then(() => {
+            // redirigir a una nueva página después de que se muestra la alerta
+            window.location.href ='/administrar';
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ha ocurrido un error!',
+            timer: 2000,
+            showConfirmButton: false // ocultar el botón "OK" 
+          });
+        }
+
+      })
+
+    })
 
   } else {
     Swal.fire({

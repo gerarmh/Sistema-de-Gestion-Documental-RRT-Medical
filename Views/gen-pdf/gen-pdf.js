@@ -63,66 +63,75 @@ async function generatePDF(nombre, folio, area, fechasoli, fechaefec, razon, alc
     pdf.text(razon, 122, 117, {align:'left', lineHeightFactor: 1.5, maxWidth: 450});
 
     //pdf.text(espectitulo, 45, 220, {align:'justify', lineHeightFactor: 1.5, maxWidth: 510});
-    pdf.text(cambiode, 42, 316, {align: 'justify', lineHeightFactor: 1.2, maxWidth: 230});
-    pdf.text(cambioa, 280, 316, {align: 'justify', lineHeightFactor: 1.2, maxWidth: 275});
-    pdf.text(capacitaciondesc, 162, 405, {align: 'left', lineHeightFactor: 1.2});
-    pdf.text(evaluaciondesc, 162, 420, {align: 'left', lineHeightFactor: 1.2});
-    pdf.text(porqueno, 122, 435, {align: 'justify', lineHeightFactor: 1.5, maxWidth: 230});
+    pdf.text(cambiode, 42, 360, {align: 'justify', lineHeightFactor: 1.2, maxWidth: 230});
+    pdf.text(cambioa, 280, 360, {align: 'justify', lineHeightFactor: 1.2, maxWidth: 275});
+    pdf.text(capacitaciondesc, 162, 413, {align: 'left', lineHeightFactor: 1.2});
+    pdf.text(evaluaciondesc, 162, 427, {align: 'left', lineHeightFactor: 1.2});
+    pdf.text(porqueno, 122, 442, {align: 'justify', lineHeightFactor: 1.5, maxWidth: 230});
     pdf.text(nocalificacion, 510, 475, {align: 'justify', lineHeightFactor: 1.5});
-    pdf.text(resultado, 42, 507, {align: 'justify', lineHeightFactor: 1.5, maxWidth: 510});
-    pdf.text(pruebas, 280, 535, {align: 'justify', lineHeightFactor: 1.5});
-    pdf.text(responsable, 45, 708);
-    pdf.text(fechainicio, 415, 708);
-    pdf.text(fechatermino, 500, 708);
+    pdf.text(resultado, 42, 515, {align: 'justify', lineHeightFactor: 1.5, maxWidth: 510});
+    pdf.text(pruebas, 280, 545, {align: 'justify', lineHeightFactor: 1.5});
+    pdf.text(responsable, 45, 718);
+    pdf.text(fechainicio, 415, 718);
+    pdf.text(fechatermino, 500, 718);
 
     pdf.setFillColor(0,0,0);
 
     if (parseInt(capacitacion)===1) {
-        pdf.circle(148, 400, 4, 'FD');
+        pdf.circle(148, 415, 4, 'FD');
         } else {
-        pdf.circle(389, 400, 4, 'FD');
+        pdf.circle(389, 422, 4, 'FD');
         }
 
     if (parseInt(evaluacion)===1) {
         pdf.circle(148, 415, 4, 'FD');
         } else {
-        pdf.circle(389, 415, 4, 'FD');
+        pdf.circle(389, 422, 4, 'FD');
         }
     if (parseInt(reqcalificacion)===1) {
-        pdf.circle(282.5, 471, 4, 'FD');
+        pdf.circle(282.5, 478.5, 4, 'FD');
         } else {
-        pdf.circle(349, 471, 4, 'FD');
+        pdf.circle(349, 478.5, 4, 'FD');
         }
     
     alcance.forEach(checkbox => {
         const value = checkbox.value;
         switch (value) {
             case '1':
-                pdf.circle(140, 161.5, 4, 'FD');
+                pdf.circle(87, 161.5, 4, 'FD');
                 break;
             case '2':
-                pdf.circle(232, 161.5, 4, 'FD');
+                pdf.circle(164.5, 161.5, 4, 'FD');
                 break;
             case '3':
-                pdf.circle(361.5, 161.5, 4, 'FD');
+                pdf.circle(253.5, 161.5, 4, 'FD');
                 break;
             case '4':
-                pdf.circle(466, 161.5, 4, 'FD');
+                pdf.circle(375.5, 161.5, 4, 'FD');
                 break;
             case '5':
-                pdf.circle(537, 161.5, 4, 'FD');
+                pdf.circle(429, 161.5, 4, 'FD');
                 break;
             case '6':
-                pdf.circle(140, 175, 4, 'FD');
+                pdf.circle(492, 161.5, 4, 'FD');
                 break;
             case '7':
-                pdf.circle(232, 175, 4, 'FD');
+                pdf.circle(554, 161.5, 4, 'FD');
                 break;
             case '8':
-                pdf.circle(361.5, 175.5, 4, 'FD');
+                pdf.circle(120, 173.5, 4, 'FD');
                 break;
             case '9':
-                pdf.circle(466, 175, 4, 'FD');
+                pdf.circle(211.5, 173.5, 4, 'FD');
+                break;
+            case '10':
+                pdf.circle(302, 173.5, 4, 'FD');
+                break;
+            case '11':
+                pdf.circle(428, 173.5, 4, 'FD');
+                break;
+            case '12':
+                pdf.circle(535, 173.5, 4, 'FD');
                 break;
         }
     })

@@ -56,51 +56,63 @@ html
                                     label(for="", class="form-label") Alcance de cambio:
                                     br
                                     div(class="form-check form-check-inline")
-                                        input(type="checkbox", name="alcance", class="form-check-input" id="procedformato" value="1")
-                                        label(for="procedformato", class="form-check-label") Proced. y/o Formato
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="procesos" value="1")
+                                        label(for="procesos", class="form-check-label") Procesos
                                         
                                     div(class="form-check form-check-inline")
-                                        input(type="checkbox", name="alcance", class="form-check-input" id="producto" value="2")
-                                        label(for="producto", class="form-check-label") Producto
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="proveedores" value="2")
+                                        label(for="proveedores", class="form-check-label") Proveedores
 
                                     div(class="form-check form-check-inline")
-                                        input(type="checkbox", name="alcance", class="form-check-input" id="matprima" value="3")
-                                        label(for="matprima", class="form-check-label") Materia prima/Fabricante
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="siscriticos" value="3")
+                                        label(for="siscriticos", class="form-check-label") Sistemas Críticos
 
                                     div(class="form-check form-check-inline")
-                                        input(type="checkbox", name="alcance", class="form-check-input" id="especificaciones" value="4")
-                                        label(for="especificaciones", class="form-check-label") Especificaciones
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="siscomputacionales" value="4")
+                                        label(for="siscomputacionales", class="form-check-label") Sistemas Computacionales
 
                                     div(class="form-check form-check-inline")
-                                        input(type="checkbox", name="alcance", class="form-check-input" id="proceso" value="5")
-                                        label(for="proceso", class="form-check-label") Proceso
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="areas" value="5")
+                                        label(for="areas", class="form-check-label") Áreas
 
                                     div(class="form-check form-check-inline")
-                                        input(type="checkbox", name="alcance", class="form-check-input" id="metanalisis" value="6")
-                                        label(for="metanalisis", class="form-check-label") Métodos de análisis
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="servicios" value="6")
+                                        label(for="servicios", class="form-check-label") Servicios
 
                                     div(class="form-check form-check-inline")
                                         input(type="checkbox", name="alcance", class="form-check-input" id="equipos" value="7")
                                         label(for="equipos", class="form-check-label") Equipos
 
                                     div(class="form-check form-check-inline")
-                                        input(type="checkbox", name="alcance", class="form-check-input" id="siscomputo" value="8")
-                                        label(for="siscomputo", class="form-check-label") Sistemas de cómputo
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="metanaliticos" value="8")
+                                        label(for="metanaliticos", class="form-check-label") Metodos Analíticos
 
                                     div(class="form-check form-check-inline")
-                                        input(type="checkbox", name="alcance", class="form-check-input" id="instalaciones" value="9")
-                                        label(for="instalaciones", class="form-check-label") Instalaciones
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="especificaciones" value="9")
+                                        label(for="especificaciones", class="form-check-label") Especificaciones
+
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="documentacion" value="10")
+                                        label(for="documentacion", class="form-check-label") Documentación
+
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="dispregulatorias" value="11")
+                                        label(for="dispregulatorias", class="form-check-label") Disposiciones Regulatorias
+                                        
+                                    div(class="form-check form-check-inline")
+                                        input(type="checkbox", name="alcance", class="form-check-input" id="calidproduct" value="12")
+                                        label(for="calidproduct", class="form-check-label") Calidad del Producto
                             hr(id="alcance")
                             div(class="row mb-3")
                                 div(class="col-md-12")
                                     div
-                                        label(for="cambiode", class="form-label") Cambio de (Maximo 340 caracteres):
-                                        textarea(type="text", class="form-control" id="cambiode" maxlength="340")
+                                        label(for="cambiode", class="form-label") Cambio de (Maximo 160 caracteres):
+                                        textarea(type="text", class="form-control" id="cambiode" maxlength="160")
                             div(class="row mb-3")
                                 div(class="col-md-12")
                                     div
-                                        label(for="cambioa", class="form-label") Cambio a (Maximo 400 caracteres):
-                                        textarea(type="text", class="form-control" id="cambioa" maxlength="398")
+                                        label(for="cambioa", class="form-label") Cambio a (Maximo 200 caracteres):
+                                        textarea(type="text", class="form-control" id="cambioa" maxlength="200")
                             div(class="row mb-3")
                                 label(class="form-label") Recursos Humanos
                                 hr
